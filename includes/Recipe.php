@@ -101,6 +101,7 @@ class Recipe{
 	*/
 	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label){
 		$url = '';
+		var_dump($remoteObject);
 		if($remoteObject->exists()){
 			$url= $remoteObject->getUrl();
 		}
