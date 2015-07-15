@@ -1,6 +1,6 @@
 <?php
 require_once('RecipeParser.php');
-require_once 'Images/GraphViz.php'; 
+require_once 'Image/GraphViz.php'; 
 /*$socle = new Recipe("Test");
 $socle->retrieveData();
 $socle->createGraph();

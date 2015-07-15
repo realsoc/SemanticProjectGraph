@@ -1,7 +1,7 @@
 <?php
 require_once('ProjectParser.php');
 require_once('FunctionalRequirement.php');
-require_once 'Images/GraphViz.php'; 
+require_once 'Image/GraphViz.php'; 
 /*$socle = new Project("SOCLE LAAS15");
 $socle->retrieveData();
 $socle->createGraph();*/

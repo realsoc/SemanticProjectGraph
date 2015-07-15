@@ -1,6 +1,6 @@
 <?php
 require_once('TechReqParser.php');
-require_once 'Images/GraphViz.php'; 
+require_once 'Image/GraphViz.php'; 
 /*$mw = new TechnicalRequirement("Installer et configurer MediaWiki");
 $mw->retrieveData();
 $mw->createGraph();
