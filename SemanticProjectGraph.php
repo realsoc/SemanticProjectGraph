@@ -27,7 +27,7 @@ $wgExtensionCredits['parserhook'][] = array(
         'version'      => '0.5',
         'author'       => array('Hugo Djemaa'), 
         'url'          => 'https://github.com/realsoc/SemanticProjectGraph',
-        'description'  => 'This extension render graphs for three type of objects (described here : http://smw.learning-socle.org');
+        'description'  => 'This extension render graphs for three type of objects (described here : http://smw.learning-socle.org')
 $dir = __DIR__ . '/';
 include_once($dir.'includes/Project.php');
 include_once($dir.'includes/TechnicalRequirement.php');
@@ -39,6 +39,7 @@ function SemanticProjectGraphParserFunction_Setup() {
         $wgParser->setFunctionHook( 'projectgraph', 'SemanticProjectGraphFunction_Render' );
         $wgParser->setFunctionHook( 'recipegraph', 'SemanticRecipeGraphFunction_Render' );
         $wgParser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
+        return true;
 }
 
 function SemanticProjectGraphFunction_Render( &$parser, $param1 = '') {
