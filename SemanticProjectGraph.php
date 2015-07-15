@@ -56,7 +56,7 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
-	$mProject->createGraph();
+	var_dump($mProject->createGraph());
 	//return array( $mProject->createGraph(),'noparse' => true, 'isHTML' => true );
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
