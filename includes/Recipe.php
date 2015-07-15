@@ -109,6 +109,10 @@ class Recipe{
 			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue'));
 		} 
 	}
+	public function retrieveAndRender(){
+		$this->retrieveData();
+		$this->createGraph();
+	}
 	/*
 	*Link Recipe with a string already in the graph
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge

@@ -58,6 +58,10 @@ class TechnicalRequirement{
 		$mParser = new TechReqParser;
 		$mParser->retrieveInfoForObject($this);
 	}
+	public function retrieveAndRender(){
+		$this->retrieveData();
+		$this->createGraph();
+	}
 	/*
 	*Create a graph and fill it with the ingredients, theme recipes  and definitions 
 	*@args 

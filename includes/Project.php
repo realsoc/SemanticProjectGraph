@@ -93,6 +93,10 @@ class Project{
 			}
 		}
 	}
+	public function retrieveAndRender(){
+		$this->retrieveData();
+		$this->createGraph();
+	}
 	/*
 	*Create a graph and fill it with the ingredients, definitions and members
 	*Functional requirement are add as well but what's under rely on the functional requirement class
