@@ -101,12 +101,13 @@ class Recipe{
 	*/
 	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label){
 		$url = '';
-		var_dump($remoteObject);
-		if($remoteObject->exists()){
-			$url= $remoteObject->getUrl();
-		}
-		$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
-		$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue')); 
+		if($remoteObject != null){
+			if($remoteObject->exists()){
+				$url= $remoteObject->getUrl();
+			}
+			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue'));
+		} 
 	}
 	/*
 	*Link Recipe with a string already in the graph
@@ -114,7 +115,7 @@ class Recipe{
 	*@return
 	*/
 	public function linkWithString($graph, $string, $label){
-
+		if($string != null)
 		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => 'blue')); 
 	}
 	/*	

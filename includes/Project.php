@@ -118,11 +118,13 @@ class Project{
 	*/
 	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label){
 		$url = '';
-		if($remoteObject->exists()){
-			$url= $remoteObject->getUrl();
+		if($remoteObject != null){
+			if($remoteObject->exists()){
+				$url= $remoteObject->getUrl();
+			}
+			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue')); 
 		}
-		$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
-		$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue')); 
 	}
 	/*
 	*create functional requirements and call the method graphyourself in Functional Requirement which take flame
