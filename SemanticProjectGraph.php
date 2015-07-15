@@ -18,7 +18,7 @@ if( !defined( 'MEDIAWIKI' ) ) {
 }
 
 # Define a setup function
-$wgExtensionFunctions[] = 'SemanticProjectGraphParserFunction_Setup';
+
 
 // Extension credits that will show up on Special:Version    
 $wgExtensionCredits['parserhook'][] = array(
@@ -32,31 +32,30 @@ $dir = __DIR__ . '/';
 include_once($dir.'includes/Project.php');
 include_once($dir.'includes/TechnicalRequirement.php');
 include_once($dir.'includes/Recipe.php');
-
-function SemanticProjectGraphParserFunction_Setup() {
-        global $wgParser;
+$wgHooks['ParserFirstCallInit'][] = 'SemanticProjectGraphParserFunction_Setup';
+function SemanticProjectGraphParserFunction_Setup(&$parser) {
         # Set a function hook associating the "example" magic word with our function
-        $wgParser->setFunctionHook( 'projectgraph', 'SemanticProjectGraphFunction_Render' );
-        $wgParser->setFunctionHook( 'recipegraph', 'SemanticRecipeGraphFunction_Render' );
-        $wgParser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
+        $parser->setFunctionHook( 'projectgraph', 'SemanticProjectGraphFunction_Render' );
+        $parser->setFunctionHook( 'recipegraph', 'SemanticRecipeGraphFunction_Render' );
+        $parser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
         return true;
 }
 
-function SemanticProjectGraphFunction_Render( &$parser, $param1 = '') {
+function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	return $mProject->createGraph();
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
 }
 
-function SemanticRecipeGraphFunction_Render( &$parser,$param1 = '') {
+function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
 	return $mProject->createGraph();
 	//testing:
 	//return "<pre>$hgtext</pre>";
 }
 
-function SemanticTechReqGraphFunction_Render( &$parser, $param1 = '') {
+function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
 	return $mProject->createGraph();
 }
