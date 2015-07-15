@@ -32,9 +32,16 @@ $dir = __DIR__ . '/';
 include_once($dir.'includes/Project.php');
 include_once($dir.'includes/TechnicalRequirement.php');
 include_once($dir.'includes/Recipe.php');
+$wgHooks['MagicWordMagicWords'][] = 'wfAddCustomMagicWord';
+function wfAddCustomMagicWord( &$magicWords ) {
+  $magicWords[] = 'projectgraph';  #magic word id
+  $magicWords[] = 'recipegraph';  #magic word id
+  $magicWords[] = 'techreqgraph';  #magic word id
+  return true;
+}
 $wgHooks['ParserFirstCallInit'][] = 'SemanticProjectGraphParserFunction_Setup';
+
 function SemanticProjectGraphParserFunction_Setup(&$parser) {
-        # Set a function hook associating the "example" magic word with our function
         $parser->setFunctionHook( 'projectgraph', 'SemanticProjectGraphFunction_Render' );
         $parser->setFunctionHook( 'recipegraph', 'SemanticRecipeGraphFunction_Render' );
         $parser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
