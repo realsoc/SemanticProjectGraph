@@ -5,10 +5,9 @@ require_once('RemoteRecipe.php');
 require_once('Parser.php');
 class ProjectParser extends Parser{
 		function __construct(){
-			parent::__construct();
+			$this->jsonService = new Services_JSON();
 		}
 		protected function jsonToObject($jsonString, $project){
-			echo $jsonString.'<br><br>';
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
 				

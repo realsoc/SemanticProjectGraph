@@ -4,7 +4,7 @@ require_once('RemoteObject.php');
 require_once('Parser.php');
 class RecipeParser extends Parser{
 		function __construct(){
-			parent::__construct();
+			$this->jsonService = new Services_JSON();
 		}
 		protected function jsonToObject($jsonString, $recipe){
 			$results = json_decode($jsonString, true);

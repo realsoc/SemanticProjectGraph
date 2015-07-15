@@ -12,9 +12,6 @@ abstract class Parser {
 	private $formatJSON = "json";
 	private $jsonService;
 
-	function __construct(){
-		$this->jsonService = new Services_JSON();
-	}
 	public function retrieveInfoForObject($object){
 		$jsonString = $this->getObjectAsJson($object);
 		$this->jsonToObject($jsonString, $object);
