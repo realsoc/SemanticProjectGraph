@@ -1,6 +1,6 @@
 <?php 
 
-require_once('/Path/to/pear/Services/JSON.php');
+require_once('Services/JSON.php');
 
 abstract class Parser {
 
