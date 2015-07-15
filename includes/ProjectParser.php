@@ -1,9 +1,9 @@
 <?php 
 require_once('RemoteObject.php');
 require_once('RemoteRecipe.php');
+require_once 'Services/JSON.php';
 
 class ProjectParser {
-		require_once('Services/JSON.php');
 		private $apiURL = "http://smw.learning-socle.org/api.php?";
 		private $actionASK = "ask";
 		private $queryPrefix = "&query=";
