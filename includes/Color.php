@@ -1,29 +1,31 @@
 <?php
 class Color{
 	private static $nodeColor = 
-		array('techreq' => '#B2B2E0',
-			'member' => '#FFFF99',
-			'project' => '#80CC99',
-			'definition' => '#FFB2B2',
-			'funcreq' => '#E6E6E6',
-			'recipe' => '#FFB2FF',
-			'ingredient' => '#FFCC80',
-			'theme' => '#C299C2');	
+		array('techreq' => '#b2b2e0',
+			'member' => '#ffff99',
+			'project' => '#80cc99',
+			'definition' => '#ffb2b2',
+			'funcreq' => '#e6e6e6',
+			'recipe' => '#ffb2ff',
+			'ingredient' => '#ffcc80',
+			'theme' => '#c299c2');	
 	private static $edgeColor = 
-		array('techreq' => '#00006B',
+		array('techreq' => '#00006b',
 			'member' => '#999900',
-			'project' => '#003D14',
-			'definition' => '#CC0000',
+			'project' => '#003d14',
+			'definition' => '#cc0000',
 			'funcreq' => '#434545',
-			'recipe' => '#B200B2',
-			'ingredient' => '#CC7A00',
+			'recipe' => '#b200b2',
+			'ingredient' => '#cc7a00',
 			'theme' => '#470047');
 	public static function colorNode($type){
 		$nodeColor = self::$nodeColor;
-		return array('color'=>$nodeColor[$type]);
+		$color = $nodeColor[$type];
+		return $color;
 	}
 	public static function colorEdge($type){
 		$edgeColor = self::$edgeColor;
-		return array('color'=>$edgeColor[$type]);
+		$color = $edgeColor[$type];
+		return $color;
 	}
 }
