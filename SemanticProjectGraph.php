@@ -120,7 +120,7 @@ function doDot( $title, $dot ) {
     	echo 'OK1/2';
       $map = file_get_contents1($fileMap); 
       $URLsvg=  "docRoot$md5.svg";
-    	echo 'FILE SVG : '.$fileSvg;
+    	echo 'FILE SVG : '.$URLsvg;
       if (file_exists($URLsvg)){
     	echo 'OK2/2';
 
