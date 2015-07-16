@@ -3,7 +3,7 @@ require_once('RemoteObject.php');
 class RemoteRecipe extends RemoteObject{
 	private $members;
 	function __construct($value){
-		Parent::__construct($value);
+		parent::__construct($value);
 		$this->members = array();
 		foreach($value["A membre"] as $memberArray){
 			$member = new RemoteObject($memberArray);
