@@ -37,7 +37,6 @@ class FunctionalRequirement{
 	public function graphYourself($graph){
 		foreach($this->techReqs as $key => $value){
 			$recipe = $this->linkedTo[$key];
-			var_dump($this->linkedTo);
 			$urlTechReq= '';
 			if($value != null){
 				if($value->exists()){
