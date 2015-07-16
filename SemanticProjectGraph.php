@@ -72,8 +72,8 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	$this->doDot($param1, $dotStr);
-	$ret = $this->htmlForImage($param1);	
+	doDot($param1, $dotStr);
+	$ret = htmlForImage($param1);	
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
@@ -86,7 +86,7 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
 	$dotStr = $mProject->retrieveAndRender();
 	doDot($param1, $dotStr);
-	$ret = $this->htmlForImage($param1);
+	$ret = htmlForImage($param1);
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
@@ -100,7 +100,7 @@ function doDot( $title, $dot ) {
     $fileMap = "$docRoot$md5.map";
     $fileSvg = "$docRoot$md5.svg";
 
-    $this->file_put_contents($fileDot, $dot);
+    file_put_contents($fileDot, $dot);
     $result = shell_exec("$dotPath -Tsvg -o$$fileSvg <$fileDot");
     $map = shell_exec("$dotPath -Tcmap -o$$fileMap <$fileDot");
 }
@@ -117,7 +117,7 @@ function doDot( $title, $dot ) {
     $fileMap = "$docRoot$md5.map";
  
     if (file_exists($fileMap)) {
-      $map = $this->file_get_contents($fileMap); 
+      $map = file_get_contents($fileMap); 
       $URLsvg=  "docRoot$md5.svg";
       if (file_exists($URLsvg)){
       	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
