@@ -31,8 +31,10 @@ class RecipeParser{
 			return $recipe;
 		}
 		public function extractFather($recipe, $jsonRecipe){
-			$father = new RemoteObject($jsonRecipe["Découle du besoin technique"][0]);
-			$recipe->setFather($father);
+			if(array_key_exists(0, $jsonRecipe["Découle du besoin technique"])){
+				$father = new RemoteObject($jsonRecipe["Découle du besoin technique"][0]);
+				$recipe->setFather($father);
+			}
 		}
 		public function extractTheme($recipe, $jsonRecipe){
 			$theme = $jsonRecipe["A thème"][0];
@@ -41,8 +43,8 @@ class RecipeParser{
 
 		public function extractMembers($recipe, $jsonRecipe){
 			foreach ($jsonRecipe["A membre"] as $el) {
-				$member = new RemoteObject($el);
-				$recipe->addMember($member);
+					$member = new RemoteObject($el);
+					$recipe->addMember($member);
 			}
 		}
 		public function extractIngredients($recipe, $jsonRecipe){
