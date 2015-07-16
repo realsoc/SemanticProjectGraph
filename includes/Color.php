@@ -1,6 +1,6 @@
 <?php
 class Color{
-	private $nodeColor = 
+	private static $nodeColor = 
 		array('techreq' => '#B2B2E0',
 			'member' => '#FFFF99',
 			'project' => '#80CC99',
@@ -9,7 +9,7 @@ class Color{
 			'recipe' => '#FFB2FF',
 			'ingredient' => '#FFCC80',
 			'theme' => '#C299C2');	
-	private $edgeColor = 
+	private static $edgeColor = 
 		array('techreq' => '#00006B',
 			'member' => '#999900',
 			'project' => '#003D14',
@@ -19,9 +19,9 @@ class Color{
 			'ingredient' => '#CC7A00',
 			'theme' => '#470047');
 	public static function colorNode($type){
-		return array('color'=>$this->nodeColor[$type]);
+		return array('color'=>Color::nodeColor[$type]);
 	}
 	public static function colorEdge($type){
-		return array('color'=>$this->edgeColor[$type]);
+		return array('color'=>Color::edgeColor[$type]);
 	}
 }
