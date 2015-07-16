@@ -18,10 +18,10 @@ class Color{
 			'recipe' => '#B200B2',
 			'ingredient' => '#CC7A00',
 			'theme' => '#470047');
-	public static colorNode($type){
+	public static function colorNode($type){
 		return array('color'=>$this->nodeColor[$type]);
 	}
-	public static colorEdge($type){
+	public static function colorEdge($type){
 		return array('color'=>$this->edgeColor[$type]);
 	}
 }
