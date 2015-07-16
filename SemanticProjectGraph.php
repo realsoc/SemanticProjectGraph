@@ -8,6 +8,8 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU General Public License 2.0 or later
  */
  
+ $dotPath = "/usr/bin/dot";
+ $graphCache = "../../images/SemanticProjectGraph_Cache/";
 /**
  * Protect against register_globals vulnerabilities.
  * This line must be present before any global variable is reference.
@@ -56,20 +58,116 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
-	return $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndRender();
+	$this->doDot($param1, $dotStr);
+	$ret = $this->htmlForImage($param1);	
+	if($ret == null){
+		$ret = '<h1>SARACE</h1>';
+	}
+	return $ret;
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
 }
 
 function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
-	return $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndRender();
+	$this->doDot($param1, $dotStr);
+	$ret = $this->htmlForImage($param1);	
+	if($ret == null){
+		$ret = '<h1>SARACE</h1>';
+	}
+	return $ret;
 	//testing:
 	//return "<pre>$hgtext</pre>";
 }
 
 function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
-	return $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndRender();
+	$this->doDot($param1, $dotStr);
+	$ret = $this->htmlForImage($param1);
+	if($ret == null){
+		$ret = '<h1>SARACE</h1>';
+	}
+	return $ret;
 }
+function doDot( $title, $dot ) { 
+    $md5 = md5($title);
+    $docRoot = __DIR__.'/'.$graphCache;
+    $fileDot = "$docRoot$md5.dot";
+    $fileMap = "$docRoot$md5.map";
+    $fileSvg = "$docRoot$md5.svg";
+
+    $this->file_put_contents($fileDot, $dot);
+    $result = shell_exec("$dotPath -Tsvg -o$$fileSvg <$fileDot");
+    $map = shell_exec("$dotPath -Tcmap -o$$fileMap <$fileDot");
+}
+  /**
+   * @brief Outputs the image to the OutputPage object.
+   *
+   * @param title to generate md5 for filename
+   */
+  function htmlForImage( $title ) {
+ 
+    $docRoot = __DIR__.'/'.$graphCache;
+    $md5 = md5($title);
+    $fileMap = "$docRoot$md5.map";
+ 
+    if (file_exists($fileMap)) {
+      $map = $this->file_get_contents($fileMap); 
+      $URLsvg=  "docRoot$md5.svg";
+      if (file_exists($URLsvg)){
+      	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
+      	$html .= "</DIV>";
+      }
+
+      return $html;
+      }
+    else {
+      return null;
+      }
+    }
+  /**
+   * @brief Writes binary string to file.
+   *
+   * @param $n file name
+   * @param $d binary string
+   *
+   * @return success
+   */
+  function file_put_contents($n,$d) {
+    $f=@fopen($n,"wb") or die(print_r(error_get_last(),true));
+    if (!$f) {
+      return false;
+      } 
+    else {
+      fwrite($f,$d);
+      //echo 'ici : '.$f.'<br>';
+      fclose($f);
+      return true;
+      }
+    }    
+
+  /**
+   * @brief Reads binary string from file.
+   *
+   * @param $n file name
+   *
+   * @return binary string (or false if failed)
+   */
+  function file_get_contents($n) {
+
+    $f=@fopen($n,"rb") or die(print_r(error_get_last(),true));
+    if (!$f) {
+      return false;
+      } 
+    else {
+      $s=filesize($n);
+      $d=false;
+      if ($s) $d=fread($f, $s) ; 
+      fclose($f);
+      return $d;
+      }
+    }    
 ?>
