@@ -114,7 +114,7 @@ function doDot( $title, $dot ) {
    * @param title to generate md5 for filename
    */
   function htmlForImage( $title ) {
-	global $graphCache;
+	global $graphCache, $wgScriptPath;
 	$script = "SemanticProjectGraph.php";
 	$html= '';
     $docRoot = __DIR__.'/'.$graphCache;
