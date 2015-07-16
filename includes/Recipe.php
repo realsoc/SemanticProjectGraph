@@ -83,6 +83,8 @@ class Recipe{
 	*/
 	public function createGraph(){
 		$graph = new Image_GraphViz();
+		$attributes = array();
+		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
 		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre");}
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
