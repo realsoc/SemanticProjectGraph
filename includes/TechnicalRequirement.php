@@ -73,7 +73,7 @@ class TechnicalRequirement{
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
-		$this->linkWithString($graph,$this->theme,"A comme thème", $type);
+		$this->linkWithString($graph,$this->theme,"A comme thème", 'theme');
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient", "ingredient");}
 		foreach ($this->recipes as $recipe) {
