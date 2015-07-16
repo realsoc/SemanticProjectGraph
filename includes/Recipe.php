@@ -1,5 +1,6 @@
 <?php
 require_once('RecipeParser.php');
+require_once('Color.php');
 require_once 'Image/GraphViz.php'; 
 /*$socle = new Recipe("Test");
 $socle->retrieveData();
@@ -101,15 +102,22 @@ class Recipe{
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge
 	*@return
 	*/
-	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label){
+	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label, $type){
 		$url = '';
 		if($remoteObject != null){
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
 			}
-			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
-			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue'));
-		} 
+			$args = array();
+			$args['URL'] = $url;
+			$args['shape'] = 'box';
+			$args['color'] = Color::colorNode($type);
+			$graph->addNode($remoteObject->getTitle(), $args); 
+			$args['URL'] = '';
+			$args['label'] = $label;
+			$args['color'] = Color::colorEdge($type);
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), $args); 
+		}
 	}
 	public function retrieveAndRender(){
 		$this->retrieveData();

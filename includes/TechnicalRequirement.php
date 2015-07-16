@@ -1,5 +1,6 @@
 <?php
 require_once('TechReqParser.php');
+require_once('Color.php');
 require_once 'Image/GraphViz.php'; 
 /*$mw = new TechnicalRequirement("Installer et configurer MediaWiki");
 $mw->retrieveData();
@@ -73,8 +74,8 @@ class TechnicalRequirement{
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
 		$this->linkWithString($graph,$this->theme,"A comme thème");
-		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
-		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient");}
+		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
+		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient", "ingredient");}
 		foreach ($this->recipes as $recipe) {
 			if($recipe instanceof RemoteRecipe){
 				$this->addAndLinkNodeForRemoteRecipe($graph,$recipe);
@@ -94,14 +95,21 @@ class TechnicalRequirement{
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge
 	*@return
 	*/
-	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label){
+	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label, $type){
 		$url = '';
 		if($remoteObject != null){
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
 			}
-			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
-			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue')); 
+			$args = array();
+			$args['URL'] = $url;
+			$args['shape'] = 'box';
+			$args['color'] = Color::colorNode($type);
+			$graph->addNode($remoteObject->getTitle(), $args); 
+			$args['URL'] = '';
+			$args['label'] = $label;
+			$args['color'] = Color::colorEdge($type);
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), $args); 
 		}
 	}
 
@@ -111,10 +119,10 @@ class TechnicalRequirement{
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
 			}
-			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
-			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => "A comme recette",'color' => 'blue')); 
+			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box', 'color' =>Color::colorNode('recipe')) ); 
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => "A comme recette",'color' => Color::colorEdge('recipe'))); 
 			foreach ($remoteObject->getMembers() as $member) {
-				$graph->addEdge(array($remoteObject->getTitle() => $member->getTitle()), array('label' => "A comme membre",'color' => 'blue')); 	
+				$graph->addEdge(array($remoteObject->getTitle() => $member->getTitle()), array('label' => "A comme membre",'color' => Color::colorEdge('member'))); 	
 			}
 		}
 	}
