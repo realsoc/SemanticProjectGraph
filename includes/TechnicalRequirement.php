@@ -88,7 +88,7 @@ class TechnicalRequirement{
 	}
 	public function linkWithString($graph, $string, $label, $type){
 		if($string != null)
-		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::edgeColor($type))); 
+		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::colorEdge($type))); 
 	}
 	/*
 	*Add first depth instance of the  RemoteObject class

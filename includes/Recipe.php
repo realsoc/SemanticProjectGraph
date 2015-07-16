@@ -130,7 +130,7 @@ class Recipe{
 	*/
 	public function linkWithString($graph, $string, $label, $type){
 		if($string != null)
-		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::edgeColor($type))); 
+		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::colorEdge($type))); 
 	}
 	/*	
 	public function setDefinitions($resultsArray){
