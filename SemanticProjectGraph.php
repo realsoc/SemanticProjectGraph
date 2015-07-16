@@ -85,7 +85,7 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	$this->doDot1($param1, $dotStr);
+	doDot($param1, $dotStr);
 	$ret = $this->htmlForImage($param1);
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
@@ -93,6 +93,7 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	return $ret;
 }
 function doDot( $title, $dot ) { 
+	global $graphCache, $dotPath;
     $md5 = md5($title);
     $docRoot = __DIR__.'/'.$graphCache;
     $fileDot = "$docRoot$md5.dot";
@@ -109,7 +110,8 @@ function doDot( $title, $dot ) {
    * @param title to generate md5 for filename
    */
   function htmlForImage( $title ) {
- 
+	global $graphCache;
+
     $docRoot = __DIR__.'/'.$graphCache;
     $md5 = md5($title);
     $fileMap = "$docRoot$md5.map";
