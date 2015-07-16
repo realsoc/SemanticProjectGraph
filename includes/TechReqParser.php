@@ -15,7 +15,6 @@ class TechReqParser{
 		}
 		protected function jsonToObject($jsonString, $techReq){
 			$results = json_decode($jsonString, true);
-			$techReq = null;
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
 				if(array_key_exists($techReq->getTitle(), $results)){
