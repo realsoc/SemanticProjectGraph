@@ -110,9 +110,9 @@ class Project{
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
-		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre");}
-		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
-		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient");}
+		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre", "member");}
+		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
+		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient" , "ingredient");}
 		foreach ($this->funcReqs as $funcReq) {$this->addAndLinkNodeForFuncReq($graph,$funcReq);}
 		return $graph->parse();
 		//$graph->image();

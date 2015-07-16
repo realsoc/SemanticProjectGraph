@@ -73,22 +73,22 @@ class TechnicalRequirement{
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
-		$this->linkWithString($graph,$this->theme,"A comme thème");
+		$this->linkWithString($graph,$this->theme,"A comme thème", $type);
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient", "ingredient");}
 		foreach ($this->recipes as $recipe) {
 			if($recipe instanceof RemoteRecipe){
 				$this->addAndLinkNodeForRemoteRecipe($graph,$recipe);
 			}elseif($recipe instanceof RemoteObject){
-				$this->addAndLinkNodeForRemoteObject($graph,$recipe, "A comme recette");
+				$this->addAndLinkNodeForRemoteObject($graph,$recipe, "A comme recette", "recipe");
 			}
 		}
 		return $graph->parse();
 		//$graph->image(); 
 	}
-	public function linkWithString($graph, $string, $label){
+	public function linkWithString($graph, $string, $label, $type){
 		if($string != null)
-		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => 'blue')); 
+		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::edgeColor($type))); 
 	}
 	/*
 	*Add first depth instance of the  RemoteObject class

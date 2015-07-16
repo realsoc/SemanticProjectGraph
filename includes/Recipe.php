@@ -87,13 +87,13 @@ class Recipe{
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
-		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre");}
-		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
-		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient");}
-		foreach ($this->projects as $project) {$this->addAndLinkNodeForRemoteObject($graph,$project,"A comme projet");}
-		foreach ($this->techReqs as $techReq) {$this->addAndLinkNodeForRemoteObject($graph,$techReq,"Nécessite le besoin technique");}
-		$this->addAndLinkNodeForRemoteObject($graph, $this->father, "Découle du besoin technique");
-		$this->linkWithString($graph, $this->theme, "A comme theme");
+		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre", "member");}
+		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
+		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient", "ingredient");}
+		foreach ($this->projects as $project) {$this->addAndLinkNodeForRemoteObject($graph,$project,"A comme projet", "project");}
+		foreach ($this->techReqs as $techReq) {$this->addAndLinkNodeForRemoteObject($graph,$techReq,"Nécessite le besoin technique", "techReq");}
+		$this->addAndLinkNodeForRemoteObject($graph, $this->father, "Découle du besoin technique", "techreq");
+		$this->linkWithString($graph, $this->theme, "A comme theme", "theme");
 		//$graph->image();
 		return $graph->parse();
 	}
@@ -128,9 +128,9 @@ class Recipe{
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge
 	*@return
 	*/
-	public function linkWithString($graph, $string, $label){
+	public function linkWithString($graph, $string, $label, $type){
 		if($string != null)
-		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => 'blue')); 
+		$graph->addEdge(array($this->title => $string), array('label' => $label,'color' => Color::edgeColor($type))); 
 	}
 	/*	
 	public function setDefinitions($resultsArray){
