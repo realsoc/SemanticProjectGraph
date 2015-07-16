@@ -123,10 +123,9 @@ function doDot( $title, $dot ) {
     if (file_exists($fileMap)) {
       $map = file_get_contents1($fileMap); 
       $URLpng =  "$wgScriptPath/extensions/SemanticProjectGraph/$script?png=$md5";
-      if (file_exists($URLpng)){
       	$html = "<DIV><IMG src=\"$URLpng\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
-      }
+
 
       return $html;
       }
