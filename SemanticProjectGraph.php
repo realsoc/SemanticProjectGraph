@@ -92,7 +92,7 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	}
 	return $ret;
 }
-function doDot1( $title, $dot ) { 
+function doDot( $title, $dot ) { 
     $md5 = md5($title);
     $docRoot = __DIR__.'/'.$graphCache;
     $fileDot = "$docRoot$md5.dot";
