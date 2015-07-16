@@ -15,7 +15,7 @@
  * This line must be present before any global variable is reference.
  */
 if( !defined( 'MEDIAWIKI' ) ) {
-         require_once 'xyCategoryGraph.php';
+         require_once 'SPGServer.php';
   		// Serve the PNG image
   		$server = new SPGServer();
   		if ($server->serveFile()) die();
