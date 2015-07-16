@@ -4,7 +4,6 @@ class SPGServer{
  	private $graphCache = "../../images/SemanticProjectGraph_Cache/";
 
 	 function serveFile() {
-	 	echo 'JE USIS LA ';
     // Get filename from GET parameter
     if(isset($_GET['png'])) {
       $filename = @$_GET['png'];
@@ -44,7 +43,7 @@ class SPGServer{
       }
     // Send headers
     header('HTTP/1.1 200 OK');
-    header('Date: '.gmdate('D, d M Y H:i:s').' GMT');
+    /*header('Date: '.gmdate('D, d M Y H:i:s').' GMT');
     header('Server: PHP');
     header('Last-Modified: '.gmdate('D, d M Y H:i:s',$time).' GMT');
     header('Expires: '.gmdate('D, d M Y H:i:s',$time+$this->xyCategoriesMaxAge).' GMT');
@@ -53,7 +52,7 @@ class SPGServer{
     header("ETag: $etag");
     header("Accept-Ranges: bytes");
     header("Content-Length: ".(string)(filesize($file)));
-    header("Connection: close\n");
+    header("Connection: close\n");*/
     header("Content-Type: image/png");
     // Send file
     $h = fopen($file, 'rb');
