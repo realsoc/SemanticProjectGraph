@@ -102,10 +102,10 @@ function doDot( $title, $dot ) {
     $docRoot = __DIR__.'/'.$graphCache;
     $fileDot = "$docRoot$md5.dot";
     $fileMap = "$docRoot$md5.map";
-    $fileSvg = "$docRoot$md5.svg";
+    $filePng = "$docRoot$md5.png";
 
     file_put_contents1($fileDot, $dot);
-    $result = shell_exec("$dotPath -Tsvg -o$fileSvg <$fileDot");
+    $result = shell_exec("$dotPath -Tpng -o$filePng <$fileDot");
     $map = shell_exec("$dotPath -Tcmap -o$fileMap <$fileDot");
 }
   /**
@@ -122,9 +122,9 @@ function doDot( $title, $dot ) {
     $fileMap = "$docRoot$md5.map";
     if (file_exists($fileMap)) {
       $map = file_get_contents1($fileMap); 
-      $URLsvg =  "$wgScriptPath/extensions/SemanticProjectGraph/$script?svg=$md5";
-      if (file_exists($URLsvg)){
-      	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
+      $URLpng =  "$wgScriptPath/extensions/SemanticProjectGraph/$script?png=$md5";
+      if (file_exists($URLpng)){
+      	$html = "<DIV><IMG src=\"$URLpng\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
       }
 
