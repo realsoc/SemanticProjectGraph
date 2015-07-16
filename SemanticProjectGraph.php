@@ -15,8 +15,12 @@
  * This line must be present before any global variable is reference.
  */
 if( !defined( 'MEDIAWIKI' ) ) {
-        echo( "This is an extension to the MediaWiki package and cannot be run standalone.\n" );
-        die( -1 );
+         require_once 'xyCategoryGraph.php';
+  		// Serve the PNG image
+  		$server = new SPGServer();
+  		if ($server->serveFile()) die();
+  		header("HTTP/1.1 404 Not Found");
+  		die("<H1>404 Not Found </H1>");
 }
 
 # Define a setup function
@@ -111,13 +115,14 @@ function doDot( $title, $dot ) {
    */
   function htmlForImage( $title ) {
 	global $graphCache;
+	$script = "SemanticProjectGraph.php";
 	$html= '';
     $docRoot = __DIR__.'/'.$graphCache;
     $md5 = md5($title);
     $fileMap = "$docRoot$md5.map";
     if (file_exists($fileMap)) {
       $map = file_get_contents1($fileMap); 
-      $URLsvg=  "$docRoot$md5.svg";
+      $URLsvg =  "$wgScriptPath/extensions/SemanticProjectGraph/$script?svg=$md5";
       if (file_exists($URLsvg)){
       	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
