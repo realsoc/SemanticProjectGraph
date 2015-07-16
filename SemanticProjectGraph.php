@@ -68,7 +68,7 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
-	return array($ret, 'isHTML' => true);;
+	return array($ret, 'isHTML' => true);
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
 }
@@ -81,7 +81,7 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
-	return array($ret, 'isHTML' => true);;
+	return array($ret, 'isHTML' => true);
 	//testing:
 	//return "<pre>$hgtext</pre>";
 }
@@ -94,7 +94,7 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
-	return $ret;
+	return array($ret, 'isHTML' => true);
 }
 function doDot( $title, $dot ) { 
 	global $graphCache, $dotPath;
