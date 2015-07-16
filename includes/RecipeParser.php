@@ -67,7 +67,8 @@ class RecipeParser{
 		}
 		public function extractProjects($recipe, $jsonRecipe){
 			foreach($jsonRecipe["Projet lié"] as $el){
-				$recipe->addProject($el);
+				$project = new RemoteObject($el);
+				$recipe->addProject($project);
 			}
 		}
 		public function retrieveInfoForObject($object){
