@@ -59,6 +59,7 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndRender();
+	echo $dotStr;
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
 	if($ret == null){
@@ -100,7 +101,7 @@ function doDot( $title, $dot ) {
     $fileMap = "$docRoot$md5.map";
     $fileSvg = "$docRoot$md5.svg";
 
-    file_put_contents($fileDot, $dot);
+    file_put_contents1($fileDot, $dot);
     $result = shell_exec("$dotPath -Tsvg -o$fileSvg <$fileDot");
     $map = shell_exec("$dotPath -Tcmap -o$fileMap <$fileDot");
 }
@@ -117,7 +118,7 @@ function doDot( $title, $dot ) {
     $fileMap = "$docRoot$md5.map";
  
     if (file_exists($fileMap)) {
-      $map = file_get_contents($fileMap); 
+      $map = file_get_contents1($fileMap); 
       $URLsvg=  "docRoot$md5.svg";
       if (file_exists($URLsvg)){
       	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
@@ -141,6 +142,7 @@ function doDot( $title, $dot ) {
   function file_put_contents1($n,$d) {
     $f=@fopen($n,"wb") or die(print_r(error_get_last(),true));
     if (!$f) {
+    	echo 'PAS COOOL';
       return false;
       } 
     else {
@@ -162,6 +164,7 @@ function doDot( $title, $dot ) {
 
     $f=@fopen($n,"rb") or die(print_r(error_get_last(),true));
     if (!$f) {
+    	echo 'PAS COOOL2';
       return false;
       } 
     else {
