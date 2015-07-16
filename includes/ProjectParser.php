@@ -76,7 +76,7 @@ class ProjectParser {
 						break;
 					}
 				}
-				if($recipe != null){
+				if($recipe != null && array_key_exists(0, $value1["printouts"]["Découle du besoin technique"])){
 					$techReqLinkedName = $value1["printouts"]["Découle du besoin technique"][0]["fulltext"];
 					$project->addRecipeToBF($recipe, $techReqLinkedName);
 				}
