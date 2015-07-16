@@ -42,17 +42,17 @@ class FunctionalRequirement{
 				if($value->exists()){
 					$urlTechReq= $value->getUrl();
 				}
-				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::nodeColor('techReq')) );
-				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::edgeColor('techReq')));
+				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techReq')) );
+				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::colorEdge('techReq')));
 				if($recipe !=null){
 					$recipeTitle = $recipe->getTitle();
 					$urlRecipe= '';
 					if($recipe->exists()){
 						$urlRecipe= $recipe->getUrl();
 					}
-					$graph->addNode($recipeTitle, array('URL' => $urlRecipe,  'shape' => 'box','color' => Color::nodeColor('recipe')) );
-					$graph->addEdge(array($key => $recipeTitle), array('label' => "A comme recette",'color' => Color::edgeColor('recipe')));
-					foreach($recipe->getMembers as $member){$graph->addEdge(array($recipeTitle => $member->getTitle()), array('label' => "A comme membre",  'color' => Color::edgeColor('member')));}
+					$graph->addNode($recipeTitle, array('URL' => $urlRecipe,  'shape' => 'box','color' => Color::colorNode('recipe')) );
+					$graph->addEdge(array($key => $recipeTitle), array('label' => "A comme recette",'color' => Color::colorEdge('recipe')));
+					foreach($recipe->getMembers as $member){$graph->addEdge(array($recipeTitle => $member->getTitle()), array('label' => "A comme membre",  'color' => Color::colorEdge('member')));}
 				}
 			}
 		}
