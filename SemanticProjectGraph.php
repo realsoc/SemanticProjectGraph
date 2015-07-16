@@ -59,7 +59,7 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	echo $dotStr;
+	echo $dotStr.'ICIIII<br><br>';
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
 	if($ret == null){
