@@ -95,7 +95,7 @@ class Project{
 	}
 	public function retrieveAndRender(){
 		$this->retrieveData();
-		$this->createGraph();
+		return $this->createGraph();
 	}
 	/*
 	*Create a graph and fill it with the ingredients, definitions and members

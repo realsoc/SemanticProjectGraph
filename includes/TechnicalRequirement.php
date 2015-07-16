@@ -60,7 +60,7 @@ class TechnicalRequirement{
 	}
 	public function retrieveAndRender(){
 		$this->retrieveData();
-		$this->createGraph();
+		return $this->createGraph();
 	}
 	/*
 	*Create a graph and fill it with the ingredients, theme recipes  and definitions 

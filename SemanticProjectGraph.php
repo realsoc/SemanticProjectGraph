@@ -59,7 +59,6 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	echo $dotStr.'ICIIII<br><br>';
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
 	if($ret == null){
@@ -142,7 +141,6 @@ function doDot( $title, $dot ) {
   function file_put_contents1($n,$d) {
     $f=@fopen($n,"wb") or die(print_r(error_get_last(),true));
     if (!$f) {
-    	echo 'PAS COOOL';
       return false;
       } 
     else {
@@ -164,7 +162,6 @@ function doDot( $title, $dot ) {
 
     $f=@fopen($n,"rb") or die(print_r(error_get_last(),true));
     if (!$f) {
-    	echo 'PAS COOOL2';
       return false;
       } 
     else {

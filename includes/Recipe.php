@@ -111,7 +111,7 @@ class Recipe{
 	}
 	public function retrieveAndRender(){
 		$this->retrieveData();
-		$this->createGraph();
+		return $this->createGraph();
 	}
 	/*
 	*Link Recipe with a string already in the graph
