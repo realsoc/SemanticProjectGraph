@@ -115,11 +115,15 @@ function doDot( $title, $dot ) {
     $docRoot = __DIR__.'/'.$graphCache;
     $md5 = md5($title);
     $fileMap = "$docRoot$md5.map";
- 
+    echo 'FILE MAP : '.$fileMap;
     if (file_exists($fileMap)) {
+    	echo 'OK1/2';
       $map = file_get_contents1($fileMap); 
       $URLsvg=  "docRoot$md5.svg";
+    	echo 'FILE SVG : '.$fileSvg;
       if (file_exists($URLsvg)){
+    	echo 'OK2/2';
+
       	$html = "<DIV><IMG src=\"$URLsvg\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
       }
