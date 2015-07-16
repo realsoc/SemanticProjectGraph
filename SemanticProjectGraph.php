@@ -85,14 +85,14 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	$this->doDot($param1, $dotStr);
+	$this->doDot1($param1, $dotStr);
 	$ret = $this->htmlForImage($param1);
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
 	return $ret;
 }
-function doDot( $title, $dot ) { 
+function doDot1( $title, $dot ) { 
     $md5 = md5($title);
     $docRoot = __DIR__.'/'.$graphCache;
     $fileDot = "$docRoot$md5.dot";
@@ -136,7 +136,7 @@ function doDot( $title, $dot ) {
    *
    * @return success
    */
-  function file_put_contents($n,$d) {
+  function file_put_contents1($n,$d) {
     $f=@fopen($n,"wb") or die(print_r(error_get_last(),true));
     if (!$f) {
       return false;
@@ -156,7 +156,7 @@ function doDot( $title, $dot ) {
    *
    * @return binary string (or false if failed)
    */
-  function file_get_contents($n) {
+  function file_get_contents1($n) {
 
     $f=@fopen($n,"rb") or die(print_r(error_get_last(),true));
     if (!$f) {
