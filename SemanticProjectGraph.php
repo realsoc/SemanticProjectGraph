@@ -59,8 +59,8 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndRender();
-	$this->doDot($param1, $dotStr);
-	$ret = $this->htmlForImage($param1);	
+	doDot($param1, $dotStr);
+	$ret = htmlForImage($param1);	
 	if($ret == null){
 		$ret = '<h1>SARACE</h1>';
 	}
