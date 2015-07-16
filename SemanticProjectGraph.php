@@ -101,8 +101,8 @@ function doDot( $title, $dot ) {
     $fileSvg = "$docRoot$md5.svg";
 
     file_put_contents($fileDot, $dot);
-    $result = shell_exec("$dotPath -Tsvg -o$$fileSvg <$fileDot");
-    $map = shell_exec("$dotPath -Tcmap -o$$fileMap <$fileDot");
+    $result = shell_exec("$dotPath -Tsvg -o$fileSvg <$fileDot");
+    $map = shell_exec("$dotPath -Tcmap -o$fileMap <$fileDot");
 }
   /**
    * @brief Outputs the image to the OutputPage object.
