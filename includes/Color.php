@@ -19,9 +19,11 @@ class Color{
 			'ingredient' => '#CC7A00',
 			'theme' => '#470047');
 	public static function colorNode($type){
-		return array('color'=>Color::nodeColor[$type]);
+		$nodeColor = self::$nodeColor;
+		return array('color'=>$nodeColor[$type]);
 	}
 	public static function colorEdge($type){
-		return array('color'=>Color::edgeColor[$type]);
+		$edgeColor = self::$edgeColor;
+		return array('color'=>$edgeColor[$type]);
 	}
 }
