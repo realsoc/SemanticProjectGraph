@@ -69,6 +69,8 @@ class TechnicalRequirement{
 	*/
 	public function createGraph(){
 		$graph = new Image_GraphViz();
+		$attributes = array('rankdir'=>"LR");
+		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
 		$this->linkWithString($graph,$this->theme,"A comme thème");
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
