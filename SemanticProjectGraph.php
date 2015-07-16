@@ -56,20 +56,20 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
-	return array( $mProject->retrieveAndRender(),'noparse' => true, 'isHTML' => true );
+	return array( $mProject->retrieveAndRender());
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
 }
 
 function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
-	return array( $mProject->retrieveAndRender(),'noparse' => true, 'isHTML' => true );
+	return array( $mProject->retrieveAndRender());
 	//testing:
 	//return "<pre>$hgtext</pre>";
 }
 
 function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
-	return array( $mProject->retrieveAndRender(),'noparse' => true, 'isHTML' => true );
+	return array( $mProject->retrieveAndRender());
 }
 ?>
