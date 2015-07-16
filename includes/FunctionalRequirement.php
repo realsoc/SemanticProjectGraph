@@ -42,8 +42,8 @@ class FunctionalRequirement{
 				if($value->exists()){
 					$urlTechReq= $value->getUrl();
 				}
-				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techReq')) );
-				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::colorEdge('techReq')));
+				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techreq')) );
+				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::colorEdge('techreq')));
 				if($recipe !=null){
 					$recipeTitle = $recipe->getTitle();
 					$urlRecipe= '';

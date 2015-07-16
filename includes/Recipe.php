@@ -91,7 +91,7 @@ class Recipe{
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient", "ingredient");}
 		foreach ($this->projects as $project) {$this->addAndLinkNodeForRemoteObject($graph,$project,"A comme projet", "project");}
-		foreach ($this->techReqs as $techReq) {$this->addAndLinkNodeForRemoteObject($graph,$techReq,"Nécessite le besoin technique", "techReq");}
+		foreach ($this->techReqs as $techReq) {$this->addAndLinkNodeForRemoteObject($graph,$techReq,"Nécessite le besoin technique", "techreq");}
 		$this->addAndLinkNodeForRemoteObject($graph, $this->father, "Découle du besoin technique", "techreq");
 		$this->linkWithString($graph, $this->theme, "A comme theme", "theme");
 		//$graph->image();
