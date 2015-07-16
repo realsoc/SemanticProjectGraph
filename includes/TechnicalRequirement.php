@@ -73,7 +73,13 @@ class TechnicalRequirement{
 		$this->linkWithString($graph,$this->theme,"A comme thème");
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient");}
-		foreach ($this->recipes as $recipe) {$this->addAndLinkNodeForRemoteObject($graph,$recipe, "A comme recette");}
+		foreach ($this->recipes as $recipe) {
+			if($recipe instanceof RemoteRecipe){
+				$this->addAndLinkNodeForRemoteRecipe($graph,$recipe);
+			}elseif($recipe instanceof RemoteObject){
+				$this->addAndLinkNodeForRemoteObject($graph,$recipe, "A comme recette");
+			}
+		}
 		return $graph->parse();
 		//$graph->image(); 
 	}
@@ -94,6 +100,20 @@ class TechnicalRequirement{
 			}
 			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
 			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => $label,'color' => 'blue')); 
+		}
+	}
+
+	public function addAndLinkNodeForRemoteRecipe($graph, $remoteObject){
+		$url = '';
+		if($remoteObject != null){
+			if($remoteObject->exists()){
+				$url= $remoteObject->getUrl();
+			}
+			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box') ); 
+			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => "A comme recette",'color' => 'blue')); 
+			foreach ($remoteObject->getMembers() as $member) {
+				$graph->addEdge(array($remoteObject->getTitle() => $member->getTitle()), array('label' => "A comme membre",'color' => 'blue')); 	
+			}
 		}
 	}
 

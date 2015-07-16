@@ -68,7 +68,11 @@ class ProjectParser {
 				$recipe = null;
 				foreach ($value1["printouts"]["Catégorie"] as $key => $value) {
 					if(array_key_exists("fulltext", $value) && strcmp($value["fulltext"], "Catégorie:Recette") == 0){
-						$recipe = new RemoteRecipe($value1);
+						if(array_key_exists("A membre", $value1)){
+							$recipe = new RemoteRecipe($value1);
+						}else{
+							$recipe = new RemoteObject($value1);
+						}
 						break;
 					}
 				}

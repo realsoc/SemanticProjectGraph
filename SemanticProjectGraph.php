@@ -111,7 +111,7 @@ function doDot( $title, $dot ) {
    */
   function htmlForImage( $title ) {
 	global $graphCache;
-
+	$html= '';
     $docRoot = __DIR__.'/'.$graphCache;
     $md5 = md5($title);
     $fileMap = "$docRoot$md5.map";
