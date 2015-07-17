@@ -105,12 +105,14 @@ class Recipe{
 	public function addAndLinkNodeForRemoteObject($graph, $remoteObject, $label, $type){
 		$url = '';
 		if($remoteObject != null){
+			$args = array();
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
+				$args['shape'] = 'box';
+			}else{
+				$args['shape'] = 'dot';
 			}
-			$args = array();
 			$args['URL'] = $url;
-			$args['shape'] = 'box';
 			$args['color'] = Color::colorNode($type);
 			$graph->addNode($remoteObject->getTitle(), $args); 
 			$args['URL'] = '';
