@@ -34,7 +34,7 @@ class ProjectParser {
 			return $project;
 		}
 		public function extractTechReq($project, $funcReqArray, $funcReqName){
-			foreach($funcReqArray["printouts"]["Texte"] as $techReqArray){
+			foreach($funcReqArray["printouts"]["Contenu"] as $techReqArray){
 				$techReq = new RemoteObject($techReqArray);
 				$project->addTechToFunc($techReq, $funcReqName);
 			}
