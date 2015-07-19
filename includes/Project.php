@@ -17,7 +17,7 @@ $socle->createGraph();*/
 */
 class Project{
 	private $objectsToQuery = "[[%PROJET%]] OR [[-Has subobject::%PROJET%]] OR [[Category:Recette]] [[Projet lié::%PROJET%]] ";
-	private $parametersToQuery = "|?A membre|?Texte|?Besoin fonctionnel lié|?Découle du besoin technique|?Ingrédient lié|?Définition liée|?Catégorie";
+	private $parametersToQuery = "|?A membre|?Contenu|?Besoin fonctionnel lié|?Découle du besoin technique|?Ingrédient lié|?Définition liée|?Catégorie";
 	private $title;
 	private $definitions;
 	private $ingredients;
