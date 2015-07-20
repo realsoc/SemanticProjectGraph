@@ -52,6 +52,7 @@ class FunctionalRequirement{
 					}
 					$graph->addNode($recipeTitle, array('URL' => $urlRecipe,  'shape' => 'box','color' => Color::colorNode('recipe')) );
 					$graph->addEdge(array($key => $recipeTitle), array('label' => "A comme recette",'color' => Color::colorEdge('recipe')));
+					if($recipe instanceof RemoteRecipe)
 					foreach($recipe->getMembers as $member){$graph->addEdge(array($recipeTitle => $member->getTitle()), array('label' => "A comme membre",  'color' => Color::colorEdge('member')));}
 				}
 			}
