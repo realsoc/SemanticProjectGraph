@@ -49,14 +49,14 @@ function SemanticProjectGraph_Magic( &$magicWords, $langCode ) {
         # All remaining elements are synonyms for our parser function
         $magicWords['projectgraph'] = array( 0, 'projectgraph');
         $magicWords['recipegraph'] = array( 0, 'recipegraph');
-        $magicWords['techreqgraph'] = array( 0, 'techreqgraph');
+        //$magicWords['techreqgraph'] = array( 0, 'techreqgraph');
         # unless we return true, other parser functions extensions won't get loaded.
         return true;
 }
 function SemanticProjectGraphParserFunction_Setup(&$parser) {
         $parser->setFunctionHook( 'projectgraph', 'SemanticProjectGraphFunction_Render' );
         $parser->setFunctionHook( 'recipegraph', 'SemanticRecipeGraphFunction_Render' );
-        $parser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
+        //$parser->setFunctionHook( 'techreqgraph', 'SemanticTechReqGraphFunction_Render' );
         return true;
 }
 
