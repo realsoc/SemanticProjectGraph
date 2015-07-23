@@ -16,13 +16,14 @@ $socle->createGraph();*/
 *You should also give a look at the ProjectParser class 
 */
 class Project{
-	private $objectsToQuery = "[[%PROJET%]] OR [[-Has subobject::%PROJET%]] OR [[Category:Recette]] [[Projet lié::%PROJET%]] ";
-	private $parametersToQuery = "|?A membre|?Contenu|?Besoin fonctionnel lié|?Découle du besoin technique|?Ingrédient lié|?Définition liée|?Catégorie";
+	private $objectsToQuery = "[[%PROJET%]] OR [[-Has subobject::%PROJET%]] OR [[Type::RecetteInBT]] [[Projet lié::%PROJET%]] OR [[Type::BTInBT]] [[Projet lié::%PROJET%]] ";
+	private $parametersToQuery = "|?A membre|?Contenu|?Besoin fonctionnel lié|?Type|?Ingrédient lié|?Définition liée|?Besoin technique lié|?Recette liée|?Besoin non fonctionnel lié";
 	private $title;
 	private $definitions;
 	private $ingredients;
 	private $funcReqs;
 	private $members;
+	private $nonFuncReqs;
 
 	function __construct($projectName = ''){
 		$this->title = $projectName;
@@ -30,6 +31,7 @@ class Project{
 		$this->members = array();
 		$this->ingredients = array();
 		$this->funcReqs = array();
+		$this->nonFuncReqs = array();
 	}
 	public function addIngredient($ingredient){
 		array_push($this->ingredients,$ingredient);
@@ -39,6 +41,9 @@ class Project{
 	}
 	public function addMember($member){
 		array_push($this->members,$member);
+	}
+	public function addNonFuncReq($nonFuncReq){
+		array_push($this->nonFuncReqs,$nonFuncReq);
 	}
 	public function addFuncReq($funcReqTitle){
 		$funcReq = new FunctionalRequirement($funcReqTitle);
@@ -106,16 +111,18 @@ class Project{
 	*@return code for the graph 
 	*/
 	public function createGraph(){
-		$graph = new Image_GraphViz();
+		$graph = new Image_GraphViz(true,array( 'size' => "15,15","ratio" => "true"));
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
+		//var_dump($this->nonFuncReqs);
+		foreach($this->nonFuncReqs as $nonFuncReq){$this->addAndLinkNodeForRemoteObject($graph, $nonFuncReq, "A comme besoin non fonctionnel", "nonfuncreq");}
 		foreach ($this->members as $member) {$this->addAndLinkNodeForRemoteObject($graph,$member,"A comme membre", "member");}
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient" , "ingredient");}
 		foreach ($this->funcReqs as $funcReq) {$this->addAndLinkNodeForFuncReq($graph,$funcReq);}
-		return $graph->parse();
-		//$graph->image();
+		//return $graph->parse();
+		$graph->image();
 		//$graph->image(); 
 	}
 	/*
@@ -149,8 +156,9 @@ class Project{
 		$title = $funcReq->getTitle();
 		$graph->addNode($title, array( 'shape' => 'box', Color::colorNode('funcreq')) ); 
 		$graph->addEdge(array($this->title => $title), array('label' => "A comme besoin fonctionnel",'color' => Color::colorEdge('funcreq')));
-		$funcReq->graphYourself($graph);
+		$graph = $funcReq->FRGraphYourself($graph);
 	}
+
 	/*	
 	public function setDefinitions($resultsArray){
 		$this->definitions = $resultsArray["Définition liée"];

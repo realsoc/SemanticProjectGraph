@@ -30,13 +30,13 @@ if( !defined( 'MEDIAWIKI' ) ) {
 $wgExtensionCredits['parserhook'][] = array(
 		'path' 			=> __FILE__,
         'name'         => 'SemanticProjectGraph',
-        'version'      => '0.5',
+        'version'      => '0.6',
         'author'       => array('Hugo Djemaa'), 
         'url'          => 'https://github.com/realsoc/SemanticProjectGraph',
         'description'  => 'This extension render graphs for three type of objects (described here : http://smw.learning-socle.org');
 $dir = __DIR__ . '/';
 include_once($dir.'includes/Project.php');
-include_once($dir.'includes/TechnicalRequirement.php');
+//include_once($dir.'includes/TechnicalRequirement.php');
 include_once($dir.'includes/Recipe.php');
 
 $wgHooks['LanguageGetMagic'][]       = 'SemanticProjectGraph_Magic';
@@ -65,9 +65,6 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$dotStr = $mProject->retrieveAndRender();
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
-	if($ret == null){
-		$ret = '<h1>SARACE</h1>';
-	}
 	return array($ret, 'isHTML' => true);
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
@@ -79,7 +76,6 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
 	if($ret == null){
-		$ret = '<h1>SARACE</h1>';
 	}
 	return array($ret, 'isHTML' => true);
 	//testing:
@@ -92,7 +88,6 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);
 	if($ret == null){
-		$ret = '<h1>SARACE</h1>';
 	}
 	return array($ret, 'isHTML' => true);
 }
@@ -123,11 +118,15 @@ function doDot( $title, $dot ) {
     if (file_exists($fileMap)) {
       $map = file_get_contents1($fileMap); 
       $URLpng =  "$wgScriptPath/extensions/SemanticProjectGraph/$script?png=$md5";
+
       	$html = "<DIV><IMG src=\"$URLpng\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
-
-
-      return $html;
+        $html2 = "<a href='#' onclick='loadUp(\"".$html."\")'>Open in POPUP</a>".$html;
+        $html2 .= '<script type="text/javascript"> ';
+        $html2 .= 'function loadUp(content){ var myWindow = window.open("", "Graph", "width=800, height=800");';
+        $html2 .= 'myWindow.document.write(content);}';
+        $html2 .= '</script>'
+      return $html2;
       }
     else {
       return null;

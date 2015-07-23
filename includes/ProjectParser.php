@@ -1,7 +1,7 @@
 <?php 
 require_once('RemoteObject.php');
 require_once('RemoteRecipe.php');
-require_once 'Services/JSON.php';
+require_once 'BT.php';
 
 class ProjectParser {
 		private $apiURL = "http://smw.learning-socle.org/api.php?";
@@ -13,7 +13,6 @@ class ProjectParser {
 		private $jsonService;
 
 		function __construct(){
-			$this->jsonService = new Services_JSON();
 		}
 		protected function jsonToObject($jsonString, $project){
 			$results = json_decode($jsonString, true);
@@ -24,18 +23,19 @@ class ProjectParser {
 				$this->extractMembers($project, $jsonProject);
 				$this->extractIngredients($project, $jsonProject);
 				$this->extractDefinitions($project, $jsonProject);
+				$this->extractNonFunReqs($project, $jsonProject);
 				$this->extractFuncReqs($project, $jsonProject);
 				foreach ($project->getFuncReqs() as $el) {
 					$title = $el->getTitle();
-					$this->extractTechReq($project, $results[$project->getTitle().'#'.$title], $title);
+					$this->extractTechReq($project, $results, $title);
 				}
-				$this->extractNLinkRecipesAndTechReqs($project, $results);
 			}
 			return $project;
 		}
-		public function extractTechReq($project, $funcReqArray, $funcReqName){
-			foreach($funcReqArray["printouts"]["Contenu"] as $techReqArray){
-				$techReq = new RemoteObject($techReqArray);
+		public function extractTechReq($project, $results, $funcReqName){
+			foreach($results[$project->getTitle()."#".$funcReqName]["printouts"]["Contenu"] as $techReqArray){
+				$techReq = new BT($techReqArray);
+				$techReq->parse($results, $project);
 				$project->addTechToFunc($techReq, $funcReqName);
 			}
 		}
@@ -44,6 +44,13 @@ class ProjectParser {
 			foreach ($jsonProject["A membre"] as $el) {
 				$member = new RemoteObject($el);
 				$project->addMember($member);
+			}
+		}
+		public function extractNonFunReqs($project, $jsonProject){
+			foreach ($jsonProject["Besoin non fonctionnel lié"] as $el) {
+				$nFuncReq = new RemoteObject($el);
+				//var_dump($el);
+				$project->addNonFuncReq($nFuncReq);
 			}
 		}
 		public function extractIngredients($project, $jsonProject){
@@ -61,25 +68,6 @@ class ProjectParser {
 		public function extractFuncReqs($project, $jsonProject){
 			foreach($jsonProject["Besoin fonctionnel lié"] as $el){
 				$project->addFuncReq($el);
-			}
-		}
-		public function extractNLinkRecipesAndTechReqs($project, $results){
-			foreach ($results as $key1 => $value1) {
-				$recipe = null;
-				foreach ($value1["printouts"]["Catégorie"] as $key => $value) {
-					if(array_key_exists("fulltext", $value) && strcmp($value["fulltext"], "Catégorie:Recette") == 0){
-						if(array_key_exists("A membre", $value1)){
-							$recipe = new RemoteRecipe($value1);
-						}else{
-							$recipe = new RemoteObject($value1);
-						}
-						break;
-					}
-				}
-				if($recipe != null && array_key_exists(0, $value1["printouts"]["Découle du besoin technique"])){
-					$techReqLinkedName = $value1["printouts"]["Découle du besoin technique"][0]["fulltext"];
-					$project->addRecipeToBF($recipe, $techReqLinkedName);
-				}
 			}
 		}
 		public function retrieveInfoForObject($object){

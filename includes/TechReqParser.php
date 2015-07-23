@@ -1,6 +1,5 @@
 <?php
 require_once('RemoteObject.php');
-require_once 'Services/JSON.php';
 
 class TechReqParser{
 		private $apiURL = "http://smw.learning-socle.org/api.php?";
@@ -11,7 +10,6 @@ class TechReqParser{
 		private $formatJSON = "json";
 		private $jsonService;
 		function __construct(){
-			$this->jsonService = new Services_JSON();
 		}
 		protected function jsonToObject($jsonString, $techReq){
 			$results = json_decode($jsonString, true);

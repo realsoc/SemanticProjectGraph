@@ -2,22 +2,15 @@
 
 class FunctionalRequirement{
 	private $title;
-	private $linkedTo;
 	private $techReqs;
 	function __construct($title){
 		$this->title = $title;
-		$this->linkedTo = array();
 		$this->techReqs = array();
 	}
 	public function setTitle($title){
 		$this->title = $title;
 	}
-	public function linkRecipeWithTechReqTitle($recipe,$techReqTitle){
-		$techReq = $this->techReqByTitle($techReqTitle);
-		$this->linkedTo[$techReqTitle] = $recipe;
-	}
 	public function addTechReq($techReq){
-		$this->linkedTo[$techReq->getTitle()] = null;
 		$this->techReqs[$techReq->getTitle()] = $techReq;
 	}
 	public function getTitle(){
@@ -33,10 +26,9 @@ class FunctionalRequirement{
 	public function hasTechReqByTitle($title){
 		return array_key_exists($title, $this->techReqs);
 	}
-
-	public function graphYourself($graph){
+	//A REVOIR
+	public function FRGraphYourself($graph){
 		foreach($this->techReqs as $key => $value){
-			$recipe = $this->linkedTo[$key];
 			$urlTechReq= '';
 			if($value != null){
 				if($value->exists()){
@@ -44,19 +36,10 @@ class FunctionalRequirement{
 				}
 				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techreq')) );
 				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::colorEdge('techreq')));
-				if($recipe !=null){
-					$recipeTitle = $recipe->getTitle();
-					$urlRecipe= '';
-					if($recipe->exists()){
-						$urlRecipe= $recipe->getUrl();
-					}
-					$graph->addNode($recipeTitle, array('URL' => $urlRecipe,  'shape' => 'box','color' => Color::colorNode('recipe')) );
-					$graph->addEdge(array($key => $recipeTitle), array('label' => "A comme recette",'color' => Color::colorEdge('recipe')));
-					if($recipe instanceof RemoteRecipe)
-					foreach($recipe->getMembers as $member){$graph->addEdge(array($recipeTitle => $member->getTitle()), array('label' => "A comme membre",  'color' => Color::colorEdge('member')));}
-				}
+				$graph = $value->BTGraphYourself($graph);
 			}
 		}
+		return $graph;
 	}
 
 }
