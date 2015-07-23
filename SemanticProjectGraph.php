@@ -125,7 +125,8 @@ function doDot( $title, $dot ) {
         $html2 = "<a href='#' onclick='loadUp(\"". $zoubi."\")'>Open in POPUP</a>".$html;
         $html2 .= '<script type="text/javascript"> ';
         $html2 .= 'function loadUp(content){ var myWindow = window.open("", "'.$title.'");';
-        $html2 .= 'myWindow.document.write(content);}';
+        $html2 .= 'myWindow.document.write(content);';
+        $html2 .= 'myWindow.document.close();}';
         $html2 .= '</script>';
       return $html2;
       }
