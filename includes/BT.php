@@ -66,6 +66,7 @@ class BT extends RemoteObject{
 				}
 				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techreq')) );
 				$graph->addEdge(array($this->getTitle() => $key), array('label' => "Se décompose en",'color' => Color::colorEdge('techreq')));
+				$graph = $value->BTGraphYourself($graph);
 			}
 		}
 		return $graph;
