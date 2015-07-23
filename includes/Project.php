@@ -121,8 +121,8 @@ class Project{
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient" , "ingredient");}
 		foreach ($this->funcReqs as $funcReq) {$this->addAndLinkNodeForFuncReq($graph,$funcReq);}
-		//return $graph->parse();
-		$graph->image();
+		return $graph->parse();
+		//$graph->image();
 		//$graph->image(); 
 	}
 	/*
