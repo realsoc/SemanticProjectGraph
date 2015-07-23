@@ -111,7 +111,7 @@ class Project{
 	*@return code for the graph 
 	*/
 	public function createGraph(){
-		$graph = new Image_GraphViz(true,array( 'size' => "15,15","ratio" => "true"));
+		$graph = new Image_GraphViz(true,array( 'size' => "17,17","ratio" => "true"));
 		$attributes = array('rankdir'=>"LR");
 		$graph->addAttributes($attributes);
 		$graph->addNode($this->title);
