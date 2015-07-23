@@ -125,7 +125,7 @@ function doDot( $title, $dot ) {
         $html2 .= '<script type="text/javascript"> ';
         $html2 .= 'function loadUp(content){ var myWindow = window.open("", "Graph", "width=800, height=800");';
         $html2 .= 'myWindow.document.write(content);}';
-        $html2 .= '</script>'
+        $html2 .= '</script>';
       return $html2;
       }
     else {
