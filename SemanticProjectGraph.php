@@ -122,7 +122,7 @@ function doDot( $title, $dot ) {
       	$html = "<DIV><IMG src=\"$URLpng\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
         $zoubi = str_replace('"', '\"', $html);
-        $html2 = "<a href='#' onclick='loadUp(\"". $html."\")'>Open in POPUP</a>".$html;
+        $html2 = "<a href='#' onclick='loadUp(\"". $zoubi."\")'>Open in POPUP</a>".$html;
         $html2 .= '<script type="text/javascript"> ';
         $html2 .= 'function loadUp(content){ var myWindow = window.open("", "Graph", "width=800, height=800");';
         $html2 .= 'myWindow.document.write(content);}';
