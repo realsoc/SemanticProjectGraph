@@ -136,7 +136,8 @@ class Project{
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
 			}else{
-				$url = $remoteObject->getUrl();
+				$url= $this->recipe->getUrl();
+				$url = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/".Color::getType($type)."/", $url);
 			}
 			$args = array();
 			$args['URL'] = $url;

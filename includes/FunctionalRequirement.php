@@ -33,6 +33,9 @@ class FunctionalRequirement{
 			if($value != null){
 				if($value->exists()){
 					$urlTechReq= $value->getUrl();
+				}else{
+					$urlTechReq = $value->getUrl();
+				echo $url."AVANT";
 				}
 				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techreq')) );
 				$graph->addEdge(array($this->title => $key), array('label' => "A comme besoin technique",'color' => Color::colorEdge('techreq')));

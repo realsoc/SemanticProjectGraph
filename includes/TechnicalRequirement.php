@@ -100,6 +100,9 @@ class TechnicalRequirement{
 		if($remoteObject != null){
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
+			}else{
+				$url= $this->recipe->getUrl();
+				$url = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/".Color::getType($type)."/", $url);
 			}
 			$args = array();
 			$args['URL'] = $url;
@@ -118,6 +121,9 @@ class TechnicalRequirement{
 		if($remoteObject != null){
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
+			}else{
+				$url = $remoteObject->getUrl();
+				$url = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/Recette/", $url);
 			}
 			$graph->addNode($remoteObject->getTitle(), array('URL' => $url, 'shape' => 'box', 'color' =>Color::colorNode('recipe')) ); 
 			$graph->addEdge(array($this->title => $remoteObject->getTitle()), array('label' => "A comme recette",'color' => Color::colorEdge('recipe'))); 

@@ -63,6 +63,10 @@ class BT extends RemoteObject{
 			if($value != null){
 				if($value->exists()){
 					$urlTechReq= $value->getUrl();
+				}else{
+					//REPLACE index.php/
+					$urlTechReq= $value->getUrl();
+					$urlTechReq = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/Besoin_technique/", $urlTechReq);
 				}
 				$graph->addNode($key, array('URL' => $urlTechReq,  'shape' => 'box', 'color' => Color::colorNode('techreq')) );
 				$graph->addEdge(array($this->getTitle() => $key), array('label' => "Se décompose en",'color' => Color::colorEdge('techreq')));
@@ -77,7 +81,9 @@ class BT extends RemoteObject{
 			$title = $this->recipe->getTitle();
 			if($this->recipe->exists()){
 				$urlRecipe= $this->recipe->getUrl();
-
+			}else{
+					$urlRecipe= $this->recipe->getUrl();
+					$urlRecipe = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/Recette/", $urlRecipe);
 			}
 			$graph->addNode($title, array('URL' => $urlRecipe,  'shape' => 'box', 'color' => Color::colorNode('recipe')) );
 			$graph->addEdge(array($this->getTitle() => $title), array('label' => "A comme recette",'color' => Color::colorEdge('recipe')));

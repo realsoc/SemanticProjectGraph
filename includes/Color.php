@@ -30,4 +30,31 @@ class Color{
 		$color = $edgeColor[$type];
 		return $color;
 	}
+	public static function getType($type){
+		$ret ="";
+		switch($type){
+			case 'techreq':
+				$ret = 'Besoin technique';
+				break;
+			case 'ingredient':
+				$ret = 'Ingrédient';
+				break;
+			case 'definition':
+				$ret = 'Définition';
+				break;
+			case 'nonfuncreq':
+				$ret = 'Besoin non fonctionnel';
+				break;
+			case 'recipe':
+				$ret = 'Recette';
+				break;
+			case 'member':
+				$ret = 'Membre';
+				break;
+			case 'project':
+				$ret = 'Projet';
+				break;
+		}
+		return $ret;
+	}
 }
