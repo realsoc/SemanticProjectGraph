@@ -62,9 +62,9 @@ function SemanticProjectGraphParserFunction_Setup(&$parser) {
 
 function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
-	$dotStr = $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndGetCode();
 	doDot($param1, $dotStr);
-	$ret = htmlForImage($param1);	
+	$ret = htmlForImage($param1, 'project');	
 	return array($ret, 'isHTML' => true);
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
@@ -72,7 +72,7 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 
 function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
-	$dotStr = $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndGetCode();
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1);	
 	if($ret == null){
@@ -84,9 +84,9 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 
 function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
-	$dotStr = $mProject->retrieveAndRender();
+	$dotStr = $mProject->retrieveAndGetCode();
 	doDot($param1, $dotStr);
-	$ret = htmlForImage($param1);
+	$ret = htmlForImage($param1, 'techreq');
 	if($ret == null){
 	}
 	return array($ret, 'isHTML' => true);
@@ -108,7 +108,7 @@ function doDot( $title, $dot ) {
    *
    * @param title to generate md5 for filename
    */
-  function htmlForImage( $title ) {
+  function htmlForImage( $title ,$type) {
 	global $graphCache, $wgScriptPath;
 	$script = "SemanticProjectGraph.php";
 	$html= '';
@@ -121,13 +121,7 @@ function doDot( $title, $dot ) {
 
       	$html = "<DIV><IMG src=\"$URLpng\" usemap=\"#map1\" alt=\"$title\"><MAP name=\"map1\">$map</MAP>";
       	$html .= "</DIV>";
-        $zoubi = str_replace('"', '\"', $html);
-        $html2 = "<a href='#' onclick='loadUp(\"". $zoubi."\")'>Open in POPUP</a>".$html;
-        $html2 .= '<script type="text/javascript"> ';
-        $html2 .= 'function loadUp(content){ var myWindow = window.open("", "'.$title.'");';
-        $html2 .= 'myWindow.document.write(content);';
-        $html2 .= 'myWindow.document.close();}';
-        $html2 .= '</script>';
+        $html2 = "<a href='GraphPopup.php?&".$type."=".$title."' target='_blank'>Ouvrir dans un nouvel onglet</a>".$html;
       return $html2;
       }
     else {

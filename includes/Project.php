@@ -23,7 +23,9 @@ class Project{
 	private $ingredients;
 	private $funcReqs;
 	private $members;
-	private $nonFuncReqs;
+	private $nonFuncReqs;		
+	private $found = false;
+
 
 	function __construct($projectName = ''){
 		$this->title = $projectName;
@@ -32,6 +34,12 @@ class Project{
 		$this->ingredients = array();
 		$this->funcReqs = array();
 		$this->nonFuncReqs = array();
+	}
+	public function setFound($found){
+		$this->found = $found;
+	}
+	public function isFound(){
+		return $this->found;
 	}
 	public function addIngredient($ingredient){
 		array_push($this->ingredients,$ingredient);
@@ -99,9 +107,9 @@ class Project{
 			}
 		}
 	}
-	public function retrieveAndRender(){
+	public function retrieveAndGetCode(){
 		$this->retrieveData();
-		return $this->createGraph();
+		return $this->getGraphCode();
 	}
 	/*
 	*Create a graph and fill it with the ingredients, definitions and members
@@ -121,9 +129,16 @@ class Project{
 		foreach ($this->definitions as $definition) {$this->addAndLinkNodeForRemoteObject($graph,$definition,"A comme définition", "definition");}
 		foreach ($this->ingredients as $ingredient) {$this->addAndLinkNodeForRemoteObject($graph,$ingredient,"A comme ingrédient" , "ingredient");}
 		foreach ($this->funcReqs as $funcReq) {$this->addAndLinkNodeForFuncReq($graph,$funcReq);}
-		return $graph->parse();
+		return $graph;
 		//$graph->image();
 		//$graph->image(); 
+	}
+
+	public function showGraph(){
+		$this->createGraph()->image();
+	}
+	public function getGraphCode(){
+		return $this->createGraph()->parse();
 	}
 	/*
 	*Add first depth instance of the  RemoteObject class

@@ -13,14 +13,17 @@ class TechReqParser{
 		}
 		protected function jsonToObject($jsonString, $techReq){
 			$results = json_decode($jsonString, true);
-			if (count($results) > 0) {
-				$results = $results["query"]["results"];
-				if(array_key_exists($techReq->getTitle(), $results)){
-					$jsonTechReq = $results[$techReq->getTitle()]["printouts"];
-					$this->extractRecipes($techReq, $jsonTechReq);
-					$this->extractIngredients($techReq, $jsonTechReq);
-					$this->extractDefinitions($techReq, $jsonTechReq);
-					$this->extractTheme($techReq, $jsonTechReq);
+			if (count($results) > 0) {	
+				if(array_key_exists("results", $results["query"])&& count($results["query"]["results"]) >0){
+					$techReq->setFound(true);
+					$results = $results["query"]["results"];
+					if(array_key_exists($techReq->getTitle(), $results)){
+						$jsonTechReq = $results[$techReq->getTitle()]["printouts"];
+						$this->extractRecipes($techReq, $jsonTechReq);
+						$this->extractIngredients($techReq, $jsonTechReq);
+						$this->extractDefinitions($techReq, $jsonTechReq);
+						$this->extractTheme($techReq, $jsonTechReq);
+					}
 				}
 				
 			}

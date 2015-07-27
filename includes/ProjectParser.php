@@ -17,17 +17,19 @@ class ProjectParser {
 		protected function jsonToObject($jsonString, $project){
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
-				
-				$results = $results["query"]["results"];
-				$jsonProject = $results[$project->getTitle()]["printouts"];
-				$this->extractMembers($project, $jsonProject);
-				$this->extractIngredients($project, $jsonProject);
-				$this->extractDefinitions($project, $jsonProject);
-				$this->extractNonFunReqs($project, $jsonProject);
-				$this->extractFuncReqs($project, $jsonProject);
-				foreach ($project->getFuncReqs() as $el) {
-					$title = $el->getTitle();
-					$this->extractTechReq($project, $results, $title);
+				if(array_key_exists("results", $results["query"]) && count($results["query"]["results"]) >0){
+					$project->setFound(true);
+					$results = $results["query"]["results"];
+					$jsonProject = $results[$project->getTitle()]["printouts"];
+					$this->extractMembers($project, $jsonProject);
+					$this->extractIngredients($project, $jsonProject);
+					$this->extractDefinitions($project, $jsonProject);
+					$this->extractNonFunReqs($project, $jsonProject);
+					$this->extractFuncReqs($project, $jsonProject);
+					foreach ($project->getFuncReqs() as $el) {
+						$title = $el->getTitle();
+						$this->extractTechReq($project, $results, $title);
+					}
 				}
 			}
 			return $project;

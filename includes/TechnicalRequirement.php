@@ -22,12 +22,18 @@ class TechnicalRequirement{
 	private $definitions;
 	private $ingredients;
 	private $theme;
-
+	private $found= false;
 	function __construct($techReqName = ''){
 		$this->title = $techReqName;
 		$this->definitions = array();
 		$this->ingredients = array();
 		$this->recipes = array();
+	}
+	public function setFound($found){
+		$this->found = $found;
+	}
+	public function isFound(){
+		return $this->found;
 	}
 	public function addIngredient($ingredient){
 		array_push($this->ingredients,$ingredient);
@@ -59,9 +65,9 @@ class TechnicalRequirement{
 		$mParser = new TechReqParser;
 		$mParser->retrieveInfoForObject($this);
 	}
-	public function retrieveAndRender(){
+	public function retrieveAndGetCode(){
 		$this->retrieveData();
-		return $this->createGraph();
+		return $this->getGraphCode();
 	}
 	/*
 	*Create a graph and fill it with the ingredients, theme recipes  and definitions 
@@ -83,8 +89,14 @@ class TechnicalRequirement{
 				$this->addAndLinkNodeForRemoteObject($graph,$recipe, "A comme recette", "recipe");
 			}
 		}
-		return $graph->parse();
+		return $graph;
 		//$graph->image(); 
+	}
+	public function showGraph(){
+		$this->createGraph()->image();
+	}
+	public function getGraphCode(){
+		return $this->createGraph()->parse();
 	}
 	public function linkWithString($graph, $string, $label, $type){
 		if($string != null)
