@@ -95,7 +95,13 @@ class Recipe{
 		$this->addAndLinkNodeForRemoteObject($graph, $this->father, "Découle du besoin technique", "techreq");
 		$this->linkWithString($graph, $this->theme, "A comme theme", "theme");
 		//$graph->image();
-		return $graph->parse();
+		return $graph;
+	}
+	public function showGraph(){
+		$this->createGraph()->image();
+	}
+	public function getGraphCode(){
+		return $this->createGraph()->parse();
 	}
 	/*
 	*Add first depth instance of the  RemoteObject class
