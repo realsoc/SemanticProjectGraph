@@ -27,6 +27,8 @@ class Recipe{
 	private $techReqs;
 	private $projects;
 
+	private $found = false;
+
 	function __construct($recipeName = ''){
 		$this->title = $recipeName;
 		$this->definitions = array();
@@ -34,6 +36,12 @@ class Recipe{
 		$this->ingredients = array();
 		$this->techReqs = array();
 		$this->projects = array();
+	}
+	public function setFound($found){
+		$this->found = $found;
+	}
+	public function isFound(){
+		return $this->found;
 	}
 	public function setTheme($theme){
 		$this->theme = $theme;
@@ -107,7 +115,7 @@ class Recipe{
 		$this->retrieveData();
 		return $this->getGraphCode();
 	}
-	
+
 	/*
 	*Add first depth instance of the  RemoteObject class
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge

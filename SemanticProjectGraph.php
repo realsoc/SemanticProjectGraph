@@ -74,7 +74,7 @@ function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
 	$mProject = new Recipe($param1);
 	$dotStr = $mProject->retrieveAndGetCode();
 	doDot($param1, $dotStr);
-	$ret = htmlForImage($param1);	
+	$ret = htmlForImage($param1, 'recipe');	
 	if($ret == null){
 	}
 	return array($ret, 'isHTML' => true);
