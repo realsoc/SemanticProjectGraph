@@ -129,6 +129,8 @@ class Recipe{
 				$url= $remoteObject->getUrl();
 				$args['shape'] = 'box';
 			}else{
+				$url= $remoteObject->getUrl();
+				$url = str_replace("index.php/", "index.php/Spécial:AjouterDonnées/".Color::getType($type)."/", $url);
 				$args['shape'] = 'dot';
 			}
 			$args['URL'] = $url;
