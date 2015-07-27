@@ -135,6 +135,8 @@ class Project{
 		if($remoteObject != null){
 			if($remoteObject->exists()){
 				$url= $remoteObject->getUrl();
+			}else{
+				$url = $remoteObject->getUrl();
 			}
 			$args = array();
 			$args['URL'] = $url;
