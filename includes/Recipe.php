@@ -103,6 +103,11 @@ class Recipe{
 	public function getGraphCode(){
 		return $this->createGraph()->parse();
 	}
+	public function retrieveAndGetCode(){
+		$this->retrieveData();
+		return $this->getGraphCode();
+	}
+	
 	/*
 	*Add first depth instance of the  RemoteObject class
 	*@args the $graph we are dealing w. the $remoteObject to render on the graph and the $label that has to be shown on the edge
