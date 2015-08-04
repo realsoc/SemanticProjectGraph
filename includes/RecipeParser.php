@@ -26,7 +26,7 @@ class RecipeParser{
 				echo "<br>";
 				echo strcmp("0", "0");
 				echo "<br>";
-				echo strcmp("1","0");
+				echo strcmp("1 ","0");
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
