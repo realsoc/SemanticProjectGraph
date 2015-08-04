@@ -18,8 +18,9 @@ class RecipeParser{
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
 				$title = $recipe->getTitle();
-				print_r(array_keys($results));
+
 				$jsonRecipe = $results["$title"]["printouts"];
+				echo strcmp(array_keys($results)[0],$title);
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
