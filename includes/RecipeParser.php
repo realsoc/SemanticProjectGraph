@@ -17,8 +17,8 @@ class RecipeParser{
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
-				var_dump($results);
-				$jsonRecipe = $results[$recipe->getTitle()]["printouts"];
+				$title = $recipe->getTitle();
+				$jsonRecipe = $results["$title"]["printouts"];
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
