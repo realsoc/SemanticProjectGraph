@@ -16,8 +16,8 @@ class RecipeParser{
 		protected function jsonToObject($jsonString, $recipe){
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
-				echo $jsonString;
 				$results = $results["query"]["results"];
+				var_dump($results);
 				$jsonRecipe = $results[$recipe->getTitle()]["printouts"];
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
