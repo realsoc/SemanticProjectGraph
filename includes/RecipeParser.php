@@ -1,4 +1,5 @@
 <?php
+header("Content-type: text/html; charset=UTF-8");
 require_once('RemoteObject.php');
 require_once 'Services/JSON.php';
 
