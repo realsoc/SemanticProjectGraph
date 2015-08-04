@@ -22,7 +22,7 @@ class RecipeParser{
 
 				$jsonRecipe = $results["$title"]["printouts"];
 				echo 'D'.var_dump(array_keys($results)[0])."F<br>";
-				echo 'D'.htmlentities(var_dump($title))."F<br>";
+				echo 'D'.var_dump($title)."F<br>";
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
