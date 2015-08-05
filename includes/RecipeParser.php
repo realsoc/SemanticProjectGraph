@@ -18,7 +18,7 @@ class RecipeParser{
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
-				$title = $recipe->getTitle();
+				$title = addslashes($recipe->getTitle());
 				$jsonRecipe = $results["$title"]["printouts"];
 				echo 'D'.addslashes(array_keys($results)[0])."F<br>";
 				echo 'D'.addslashes($title)."F<br>";
