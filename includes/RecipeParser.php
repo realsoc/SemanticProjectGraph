@@ -21,8 +21,8 @@ class RecipeParser{
 				$title = $recipe->getTitle();
 
 				$jsonRecipe = $results["$title"]["printouts"];
-				echo 'D'.addcslashes(array_keys($results)[0], 'A..z')."F<br>";
-				echo 'D'.addcslashes($title, 'A..z')."F<br>";
+				echo 'D'.addcslashes(array_keys($results)[0], 'A..z \'')."F<br>";
+				echo 'D'.addcslashes($title, 'A..z \'')."F<br>";
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
