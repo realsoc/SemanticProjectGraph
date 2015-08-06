@@ -20,8 +20,6 @@ class RecipeParser{
 				$results = $results["query"]["results"];
 				$title = $recipe->getTitle();
 				$jsonRecipe = $results["$title"]["printouts"];
-				echo 'D'.htmlspecialchars(array_keys($results)[0])."F<br>";
-				echo 'D'.htmlspecialchars(htmlspecialchars_decode($title, ENT_QUOTES))."F<br>";
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
