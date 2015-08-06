@@ -28,7 +28,7 @@ class Project{
 
 
 	function __construct($projectName = ''){
-		$this->title = $projectName;
+		$this->title = htmlspecialchars_decode($projectName, ENT_QUOTES);
 		$this->definitions = array();
 		$this->members = array();
 		$this->ingredients = array();
