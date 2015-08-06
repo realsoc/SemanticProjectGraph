@@ -10,7 +10,7 @@ class RemoteObject{
 		$this->members = array();
 	}
 	public function createFromArray($dataArray){
-		$this->title = $dataArray["fulltext"];
+		$this->title = addslashes($dataArray["fulltext"]);
 		$this->url = $dataArray["fullurl"];
 		$this->exists = array_key_exists("exists", $dataArray);// && $dataArray["exists"] == true;
 	}
