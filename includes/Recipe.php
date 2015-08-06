@@ -30,7 +30,7 @@ class Recipe{
 	private $found = false;
 
 	function __construct($recipeName = ''){
-		$this->title = addslashes($recipeName);
+		$this->title = $recipeName;
 		$this->definitions = array();
 		$this->members = array();
 		$this->ingredients = array();
