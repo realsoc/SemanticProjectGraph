@@ -1,18 +1,22 @@
 <?php 
 require_once('RemoteObject.php');
 require_once('RemoteRecipe.php');
-require_once 'BT.php';
+//require_once 'BT.php';
+require_once 'MediawikiNavigator.php';
+require_once 'FunctionalRequirement.php';
 
 class ProjectParser {
-		private $apiURL = "http://smw.learning-socle.org/api.php?";
+		private $apiURL = "/api.php?";
 		private $actionASK = "ask";
 		private $queryPrefix = "&query=";
 		private $actionPrefix = "&action=";
 		private $formatPrefix = "&format=";
 		private $formatJSON = "json";
 		private $jsonService;
+		private $mn;
 
 		function __construct(){
+			$this->mn = new MediawikiNavigor('http://smw.learning-socle.org', 'ApiUser', 'pls15');
 		}
 		protected function jsonToObject($jsonString, $project){
 			$results = json_decode($jsonString, true);
@@ -26,21 +30,11 @@ class ProjectParser {
 					$this->extractDefinitions($project, $jsonProject);
 					$this->extractNonFunReqs($project, $jsonProject);
 					$this->extractFuncReqs($project, $jsonProject);
-					foreach ($project->getFuncReqs() as $el) {
-						$title = $el->getTitle();
-						$this->extractTechReq($project, $results, $title);
-					}
 				}
 			}
 			return $project;
 		}
-		public function extractTechReq($project, $results, $funcReqName){
-			foreach($results[$project->getTitle()."#".$funcReqName]["printouts"]["Contenu"] as $techReqArray){
-				$techReq = new BT($techReqArray);
-				$techReq->parse($results, $project);
-				$project->addTechToFunc($techReq, $funcReqName);
-			}
-		}
+
 
 		public function extractMembers($project, $jsonProject){
 			foreach ($jsonProject["A membre"] as $el) {
@@ -68,9 +62,9 @@ class ProjectParser {
 			}
 		}
 		public function extractFuncReqs($project, $jsonProject){
-			foreach($jsonProject["Besoin fonctionnel lié"] as $el){
-				$project->addFuncReq($el);
-			}
+			$strTree = $jsonProject["ListeBF"][0];
+			$project->setFuncReqs($this->parseFuncsReq($strTree)->getSons());
+			//$project->setFuncsReqTree($jsonProject["ListeBF"]);
 		}
 		public function retrieveInfoForObject($object){
 			$jsonString = $this->getObjectAsJson($object);
@@ -79,7 +73,15 @@ class ProjectParser {
 		private function getObjectAsJson($object){
 			$mQuery=urlencode($object->getQuery());
 			$url=$this->apiURL.$this->actionPrefix.$this->actionASK.$this->queryPrefix.$mQuery.$this->formatPrefix.$this->formatJSON;
-			return file_get_contents($url);
+			return $this->mn->get($url);
+		}
+		//<->BF1 <-->SBF1 <--->SSBF1 +Recette10 <--->SSBF2 +Recette11 <-->SBF2 +Recette2 <->BF2 +Recette3
+		private function parseFuncsReq($funcsReqString){
+			$root = new FunctionalRequirement('root');
+			$root->sonsExtractor($funcsReqString);
+			//echo $root->showRecur();
+			return $root;
 		}
 	}
 ?>
+
