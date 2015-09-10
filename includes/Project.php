@@ -17,7 +17,7 @@ $socle->createGraph();*/
 */
 class Project{
 	private $objectsToQuery = "[[%PROJET%]] OR [[-Has subobject::%PROJET%]] OR [[Type::RecetteInBT]] [[Projet lié::%PROJET%]] OR [[Type::BTInBT]] [[Projet lié::%PROJET%]] ";
-	private $parametersToQuery = "|?A membre|?Contenu|?Besoin fonctionnel lié|?Type|?Ingrédient lié|?Définition liée|?Besoin technique lié|?Recette liée|?Besoin non fonctionnel lié";
+	private $parametersToQuery = "|?A membre|?Contenu|?Type|?Ingrédient lié|?Définition liée|?Recette liée|?Besoin non fonctionnel lié|?ListeBF";
 	private $title;
 	private $definitions;
 	private $ingredients;
@@ -53,9 +53,8 @@ class Project{
 	public function addNonFuncReq($nonFuncReq){
 		array_push($this->nonFuncReqs,$nonFuncReq);
 	}
-	public function addFuncReq($funcReqTitle){
-		$funcReq = new FunctionalRequirement($funcReqTitle);
-		$this->funcReqs[$funcReqTitle] = $funcReq;
+	public function setFuncReqs($funcsReqTree){
+		$this->funcReqs = $funcsReqTree;
 	}
 	public function addTechToFunc($techReq, $funcReqTitle){
 		$this->funcReqs[$funcReqTitle]->addTechReq($techReq);
