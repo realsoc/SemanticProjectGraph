@@ -16,7 +16,7 @@ $socle->createGraph();
 */
 class Recipe{
 	private $objectsToQuery = "[[%RECETTE%]] ";
-	private $parametersToQuery = "|?A membre|?Découle du besoin technique|?Besoin technique lié|?A thème|?Ingrédient lié|?Définition liée|?Projet lié";
+	private $parametersToQuery = "|?A membre|?A thème|?Ingrédient lié|?Définition liée|?Projet lié";
 	private $title;
 	private $theme;
 	private $father;
