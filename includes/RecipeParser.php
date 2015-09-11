@@ -14,7 +14,6 @@ class RecipeParser{
 			$this->mn = new Login();
 		}
 		protected function jsonToObject($jsonString, $recipe){
-			echo $jsonString;
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
