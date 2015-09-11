@@ -3,7 +3,7 @@
 	//  print("Specify the part of the URL after 'https://my.private.wiki/wiki/index.php/' as argument.\n");
 	//  exit;
 	// }
-include "Snoopy/Snoopy.class.php";
+include "Snoopy.class.php";
 class Login{
 	private $snoopy;
 	function __construct(){
