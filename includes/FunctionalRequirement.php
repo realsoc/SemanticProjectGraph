@@ -7,11 +7,11 @@ class FunctionalRequirement{
 	private $recette;
 
 	function __construct($title, $recette = null){
-		$this->title = $title;
+		$this->title = trim($title);
 		$this->sons = array();
 		if($recette != null){
 			$this->isLast = true;
-			$this->recette = $recette;
+			$this->recette = trim($recette);
 		}
 	}
 	public function getSons(){
@@ -94,7 +94,7 @@ class FunctionalRequirement{
 		$arrayResult = preg_split("/<1>/", $newString);
 		$name = $arrayResult[0];
 		if(strpos($name, '+') !== FALSE){
-			$funcWRecipeTab = split('\+', $name);
+			$funcWRecipeTab = preg_split('/\+/', $name);
 			$name = $funcWRecipeTab[0];
 			$recipe = $funcWRecipeTab[1];
 			$newSon = new FunctionalRequirement($name, $recipe);
