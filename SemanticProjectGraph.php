@@ -71,7 +71,7 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	//testing:     
 	//return "<pre>".$dottext."</pre>";
 }
-function addSubobjectSaRace(){/*
+function addSubobjectSaRace(){
 $page     = SMWWikiPageValue::makePage("ItsaTest", NS_MAIN);
 $writer   = new SMWWriter( $page->getTitle() );
 $add      = new SMWSemanticData( $page );
@@ -79,8 +79,9 @@ $remove   = new SMWSemanticData(SMWWikiPageValue::makePage(false, NS_MAIN));
 $property = SMWPropertyValue::makeUserProperty("wishes");
 $value    = SMWDataValueFactory::newPropertyObjectValue($property, "The End of Mr Y");
 $add->addPropertyObjectValue($property, $value);
-$writer->update( $remove, $add, "Adding Johnny's new wish" );*/
-// Subobject instantiation 
+$writer->update( $remove, $add, "Adding Johnny's new wish" );
+// Subobject instantiation /*
+/*
 $subobject = Subobject::Factory( "", "toutou" );
 $property = SMWPropertyValue::makeUserProperty("wishes");
 $value    = SMWDataValueFactory::newPropertyObjectValue($property, "The End of Mr Y");
@@ -96,7 +97,7 @@ $add->addPropertyObjectValue(
   $subobject->getSubobjectProperty(), 
   $subobject->getSubobjectContainer() 
 );
-$writer->update( $remove, $add, "Bim" );
+$writer->update( $remove, $add, "Bim" );*/
 }
 
 function SemanticRecipeGraphFunction_Render( $parser,$param1 = '') {
