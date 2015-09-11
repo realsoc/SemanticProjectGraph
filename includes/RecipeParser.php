@@ -22,20 +22,12 @@ class RecipeParser{
 				$this->extractMembers($recipe, $jsonRecipe);
 				$this->extractIngredients($recipe, $jsonRecipe);
 				$this->extractDefinitions($recipe, $jsonRecipe);
-				$this->extractTechReqs($recipe, $jsonRecipe);
 				$this->extractProjects($recipe, $jsonRecipe);
-
 				$this->extractTheme($recipe, $jsonRecipe);
-				$this->extractFather($recipe, $jsonRecipe);
 			}
 			return $recipe;
 		}
-		public function extractFather($recipe, $jsonRecipe){
-			if(array_key_exists(0, $jsonRecipe["Découle du besoin technique"])){
-				$father = new RemoteObject($jsonRecipe["Découle du besoin technique"][0]);
-				$recipe->setFather($father);
-			}
-		}
+	
 		public function extractTheme($recipe, $jsonRecipe){
 			$theme = $jsonRecipe["A thème"][0];
 			$recipe->setTheme($theme);
@@ -59,12 +51,7 @@ class RecipeParser{
 				$recipe->addDefinition($definition);
 			}
 		}
-		public function extractTechReqs($recipe, $jsonRecipe){
-			foreach($jsonRecipe["Besoin technique lié"] as $el){
-				$techReq = new RemoteObject($el);
-				$recipe->addTechReq($techReq);
-			}
-		}
+
 		public function extractProjects($recipe, $jsonRecipe){
 			foreach($jsonRecipe["Projet lié"] as $el){
 				$project = new RemoteObject($el);
