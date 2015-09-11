@@ -64,7 +64,6 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndGetCode();
   $arrayRecette = $mProject->getFuncReqs();
-    BS();
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1, 'project');	
 	return array($ret, 'isHTML' => true);
@@ -94,7 +93,7 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	}
 	return array($ret, 'isHTML' => true);
 }
-function BS(){
+/*function BS(){
   $params = new DerivativeRequest( 
         $this->getRequest(),
         array(
@@ -104,7 +103,7 @@ function BS(){
       );
     $api = new ApiMain( $params, true ); // default is false
     $api->execute();
-}
+}*/
 function doDot( $title, $dot ) { 
 	global $graphCache, $dotPath;
     $md5 = md5($title);
