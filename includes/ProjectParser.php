@@ -2,7 +2,7 @@
 require_once('RemoteObject.php');
 require_once('RemoteRecipe.php');
 //require_once 'BT.php';
-require_once 'MediawikiNavigator.php';
+require_once 'Login.php';
 require_once 'FunctionalRequirement.php';
 
 class ProjectParser {
@@ -16,7 +16,7 @@ class ProjectParser {
 		private $mn;
 
 		function __construct(){
-			$this->mn = new MediawikiNavigor('http://smw.learning-socle.org', 'ApiUser', 'pls15');
+			$this->mn = new Login();
 		}
 		protected function jsonToObject($jsonString, $project){
 			$results = json_decode($jsonString, true);
@@ -73,7 +73,7 @@ class ProjectParser {
 		private function getObjectAsJson($object){
 			$mQuery=urlencode($object->getQuery());
 			$url=$this->apiURL.$this->actionPrefix.$this->actionASK.$this->queryPrefix.$mQuery.$this->formatPrefix.$this->formatJSON;
-			return $this->mn->get($url);
+			return $this->mn->callApi($url);
 		}
 		//<->BF1 <-->SBF1 <--->SSBF1 +Recette10 <--->SSBF2 +Recette11 <-->SBF2 +Recette2 <->BF2 +Recette3
 		private function parseFuncsReq($funcsReqString){

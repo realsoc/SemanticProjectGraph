@@ -14,7 +14,7 @@ class Login{
 
 		# Login via api.php
 		$login_vars['action'] = "login";
-		$login_vars['lgname'] = "ApiUser";
+		$login_vars['lgname'] = "Admin";
 		$login_vars['lgpassword'] = "pls15";
 		$login_vars['format'] = "php";
 		## First part
