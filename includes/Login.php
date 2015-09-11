@@ -33,7 +33,7 @@ class Login{
 		return $this->snoopy->results;
 		//print($this->snoopy->results);
 	}
-	function writeStuf($page, $property, $value, $summary){
+	/*function writeStuf($page, $property, $value, $summary){
 		$this->snoopy->submit("http://smw.learning-socle.org/api.php?&action=query&meta=tokens&format=json");
 		$arrayToken = json_decode($this->snoopy->results, true);
 		$token = urlencode($arrayToken["query"]["tokens"]["csrftoken"]);
@@ -43,7 +43,7 @@ class Login{
 
 		$this->snoopy->submit("http://smw.learning-socle.org/api.php", $args);
 		print($this->snoopy->results);
-	}
+	}*/
 	function getCookieHeaders($headers){
         $cookies = array();
         foreach($headers as $header)
