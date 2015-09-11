@@ -1,20 +1,20 @@
 <?php
 //header("Content-type: text/html; charset=UTF-8");
 require_once('RemoteObject.php');
-require_once 'Services/JSON.php';
 
 class RecipeParser{
-		private $apiURL = "http://smw.learning-socle.org/api.php?";
+		private $apiURL = "/api.php?";
 		private $actionASK = "ask";
 		private $queryPrefix = "&query=";
 		private $actionPrefix = "&action=";
 		private $formatPrefix = "&format=";
 		private $formatJSON = "json";
-		private $jsonService;
+		private $mn;
 		function __construct(){
-			$this->jsonService = new Services_JSON();
+			$this->mn = new Login();
 		}
 		protected function jsonToObject($jsonString, $recipe){
+			echo $jsonString;
 			$results = json_decode($jsonString, true);
 			if (count($results) > 0) {
 				$results = $results["query"]["results"];
@@ -79,7 +79,7 @@ class RecipeParser{
 		private function getObjectAsJson($object){
 			$mQuery=urlencode($object->getQuery());
 			$url=$this->apiURL.$this->actionPrefix.$this->actionASK.$this->queryPrefix.$mQuery.$this->formatPrefix.$this->formatJSON;
-			return file_get_contents($url);
+			return $this->mn->callApi($url);
 		}
 	}
 ?>
