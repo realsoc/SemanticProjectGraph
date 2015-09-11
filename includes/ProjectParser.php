@@ -74,6 +74,7 @@ class ProjectParser {
 			$mQuery=urlencode($object->getQuery());
 			$url=$this->apiURL.$this->actionPrefix.$this->actionASK.$this->queryPrefix.$mQuery.$this->formatPrefix.$this->formatJSON;
 			return $this->mn->callApi($url);
+			//return $this->mn->callApi($url);
 		}
 		//<->BF1 <-->SBF1 <--->SSBF1 +Recette10 <--->SSBF2 +Recette11 <-->SBF2 +Recette2 <->BF2 +Recette3
 		private function parseFuncsReq($funcsReqString){
