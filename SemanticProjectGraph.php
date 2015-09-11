@@ -64,10 +64,11 @@ function SemanticProjectGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new Project($param1);
 	$dotStr = $mProject->retrieveAndGetCode();
   $arrayRecette = $mProject->getFuncReqs();
+    BS();
 	doDot($param1, $dotStr);
 	$ret = htmlForImage($param1, 'project');	
 	return array($ret, 'isHTML' => true);
-	//testing:     
+	//testing:
 	//return "<pre>".$dottext."</pre>";
 }
 
@@ -87,10 +88,22 @@ function SemanticTechReqGraphFunction_Render( $parser, $param1 = '') {
 	$mProject = new TechnicalRequirement($param1);
 	$dotStr = $mProject->retrieveAndGetCode();
 	doDot($param1, $dotStr);
+
 	$ret = htmlForImage($param1, 'techreq');
 	if($ret == null){
 	}
 	return array($ret, 'isHTML' => true);
+}
+function BS(){
+  $params = new DerivativeRequest( 
+        $this->getRequest(),
+        array(
+          'action' => 'smwwritable',
+          'title' => 'ItsaTest'),
+        true
+      );
+    $api = new ApiMain( $params, true ); // default is false
+    $api->execute();
 }
 function doDot( $title, $dot ) { 
 	global $graphCache, $dotPath;

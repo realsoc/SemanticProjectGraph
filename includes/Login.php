@@ -4,8 +4,8 @@
 	//  exit;
 	// }
 include "Snoopy.class.php";
-/*$login = new Login;
-$login->writeStuf("ItsaTest", "Test1", "Value1","Résumé de ouf");*/
+$login = new Login;
+$login->writeStuf("ItsaTest", "Test1", "Value1","Résumé de ouf");
 class Login{
 	private $snoopy;
 	private $login_vars;
@@ -37,7 +37,11 @@ class Login{
 		$this->snoopy->submit("http://smw.learning-socle.org/api.php?&action=query&meta=tokens&format=json");
 		$arrayToken = json_decode($this->snoopy->results, true);
 		$token = urlencode($arrayToken["query"]["tokens"]["csrftoken"]);
-		$this->snoopy->submit("http://smw.learning-socle.org/api.php?&action=smwwrite&token=".$token."&title=".$page."&add=[[".$property."::".$value."]]&summary=".$summary);
+		//$args = array("action" => "smwwrite", "token" => $token, "title" => $page, "add" =>"[[".$property."::".$value."]]", "summary" =>$summary, "format"=>"json");
+		//$this->snoopy->_httpmethod = "POST";
+		$args = array("action" => "smwwritable", "title" => $page);
+
+		$this->snoopy->submit("http://smw.learning-socle.org/api.php", $args);
 		print($this->snoopy->results);
 	}
 	function getCookieHeaders($headers){
