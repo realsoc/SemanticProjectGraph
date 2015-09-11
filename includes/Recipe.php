@@ -31,6 +31,7 @@ class Recipe{
 
 	function __construct($recipeName = ''){
 		$this->title = htmlspecialchars_decode($recipeName, ENT_QUOTES);
+		echo $this->title;
 		$this->definitions = array();
 		$this->members = array();
 		$this->ingredients = array();
