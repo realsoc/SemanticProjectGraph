@@ -4,8 +4,8 @@
 	//  exit;
 	// }
 include "Snoopy.class.php";
-$login = new Login;
-$login->writeStuf("ItsaTest", "Test1", "Value1","Résumé de ouf");
+/*$login = new Login;
+$login->writeStuf("ItsaTest", "Test1", "Value1","Résumé de ouf");*/
 class Login{
 	private $snoopy;
 	private $login_vars;
